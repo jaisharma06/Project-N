@@ -11,6 +11,8 @@ namespace Anvarat.Architecture
         public State pCurrentState { get; private set; }
         public event Action<State> onStateChangedEvent;
 
+        private State _parallelState;
+
         public void SetStates(Dictionary<Type, State> states)
         {
             _availableStates = states;
@@ -26,6 +28,8 @@ namespace Anvarat.Architecture
             {
                 SwitchToNewState(nextState);
             }
+
+            _parallelState?.Tick();
         }
 
         private void SwitchToNewState(Type nextState)
@@ -34,6 +38,11 @@ namespace Anvarat.Architecture
             pCurrentState = _availableStates[nextState];
             pCurrentState?.OnEnter();
             onStateChangedEvent?.Invoke(pCurrentState);
+        }
+
+        public void SetParallelState(State parallelState)
+        {
+            _parallelState = parallelState;
         }
     }
 }

@@ -29,10 +29,6 @@ public class GroundChecker : MonoBehaviour
         pIsGrounded =
             Physics2D.OverlapCapsule(transform.position, capsuleSize, CapsuleDirection2D.Vertical, 0, groundLayer);
 
-#if UNITY_EDITOR
-        Debug.Log($"Grounded: {pIsGrounded}");
-#endif
-
         return pIsGrounded;
     }
 }

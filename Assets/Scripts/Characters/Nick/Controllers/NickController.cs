@@ -12,16 +12,25 @@ namespace Characters.Nick
     [RequireComponent(typeof(Collider2D))]
     public class NickController : MonoBehaviour
     {
+        #region SERIALIZED_FIELDS
         public Traits nickTraits;
         public InputMaster controls;
+        #endregion
         
+        #region PROPERTIES
         public float pCurrentSpeed { get; set; }
 
         private StateMachine _stateMachine;
         public Collider2D pCollider { get; private set; }
         public Rigidbody2D pRigidbody { get; private set; }
         public GroundChecker pGroundChecker { get; private set; }
+        public bool pIsJumping { get; set; }
+        public bool pIsDodging { get; set; }
+        public Direction pDodgeDirection { get; private set; }
+        public float pDodgeCooldownTimer { get; set; }
+        #endregion
 
+        #region UNITY_BUILT_IN_METHODS
         private void Awake()
         {
             pRigidbody = GetComponent<Rigidbody2D>();
@@ -42,6 +51,7 @@ namespace Characters.Nick
         {
             controls.Disable();
         }
+        #endregion
 
         private void InitializeStateMachine()
         {
@@ -50,16 +60,27 @@ namespace Characters.Nick
             {
                 { typeof(Idle), new Idle(this)},
                 { typeof(Moving), new Moving(this)},
-                { typeof(Jumping), new Jumping(this)}
+                { typeof(Jumping), new Jumping(this)},
+                { typeof(Dodging), new Dodging(this)}
             };
+
+            var parallelState = new ParallelState();
+            parallelState.SetContext(() =>
+            {
+                if (pDodgeCooldownTimer > 0)
+                {
+                    pDodgeCooldownTimer -= Time.deltaTime;
+                }
+            });
             
+            _stateMachine.SetParallelState(parallelState);
             _stateMachine.SetStates(states);
         }
 
         private void SetupPlayerInput()
         {
             controls.Nick.Movement.performed += ctx => UpdateSpeed(ctx.ReadValue<float>());
-            controls.Nick.Movement.canceled += ctx => UpdateSpeed(0);
+            controls.Nick.Movement.canceled += _ => UpdateSpeed(0);
             controls.Nick.Jumping.performed += _ => Jump();
             controls.Nick.Dodge.performed += _ => Dodge();
         }
@@ -79,6 +100,10 @@ namespace Characters.Nick
 #if UNITY_EDITOR
             Debug.Log($"Jumping");
 #endif
+            if (pGroundChecker.pIsGrounded)
+            {
+                pIsJumping = true;
+            }
         }
 
         private void Dodge()
@@ -86,6 +111,11 @@ namespace Characters.Nick
 #if UNITY_EDITOR
             Debug.Log($"Dodging");
 #endif
+            if (!pIsDodging && pDodgeCooldownTimer <= 0)
+            {
+                pIsDodging = true;
+                pDodgeDirection = (pCurrentSpeed > 0) ? Direction.RIGHT : Direction.LEFT;
+            }
         }
 
         #endregion

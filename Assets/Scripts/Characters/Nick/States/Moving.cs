@@ -15,9 +15,14 @@ namespace Characters.Nick.States
         }
         public override Type Tick()
         {
-            if (!_owner.pGroundChecker.pIsGrounded)
+            if (!_owner.pGroundChecker.pIsGrounded  || _owner.pIsJumping)
             {
                 return typeof(Jumping);
+            }
+
+            if (_owner.pIsDodging)
+            {
+                return typeof(Dodging);
             }
             
             if (Mathf.Abs(_owner.pCurrentSpeed) > 0)

@@ -277,6 +277,7 @@
       <e p="Assets" t="Include">
         <e p="Scripts" t="Include">
           <e p="Architecture" t="Include">
+            <e p="ParallelState.cs" t="Include" />
             <e p="State.cs" t="Include" />
             <e p="StateMachine.cs" t="Include" />
           </e>
@@ -289,10 +290,14 @@
                 <e p="AnimationController.cs" t="Include" />
                 <e p="NickController.cs" t="Include" />
               </e>
+              <e p="Enums" t="Include">
+                <e p="Direction.cs" t="Include" />
+              </e>
               <e p="Settings" t="Include">
                 <e p="Traits.cs" t="Include" />
               </e>
               <e p="States" t="Include">
+                <e p="Dodging.cs" t="Include" />
                 <e p="Idle.cs" t="Include" />
                 <e p="Jumping.cs" t="Include" />
                 <e p="Moving.cs" t="Include" />
