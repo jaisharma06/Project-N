@@ -13,6 +13,7 @@ namespace Characters.Nick.Settings
         public float dodgeSpeed = 10f;
         public float dodgeTime = 1f;
         public float dodgeCooldownTime = 1f;
+        public float maxHealth = 1f;
         public string characterName = "Nick";
     }   
 }

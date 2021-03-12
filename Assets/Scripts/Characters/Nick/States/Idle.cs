@@ -1,5 +1,4 @@
 using System;
-using System.Numerics;
 using Anvarat.Architecture;
 using UnityEngine;
 using Vector2 = UnityEngine.Vector2;
@@ -10,6 +9,7 @@ namespace Characters.Nick.States
     {
         private NickController _owner;
         private Vector2 _velocity;
+        private float angle;
         
         public Idle(NickController owner)
         {
@@ -37,8 +37,14 @@ namespace Characters.Nick.States
                 _velocity.x = 0;
                 _velocity.y = _owner.pRigidbody.velocity.y;
                 _owner.pRigidbody.velocity = _velocity; 
+                GetVerticalVelocity();
                 return typeof(Idle);
             }
+        }
+
+        private void GetVerticalVelocity()
+        {
+           angle = Vector2.Angle(Vector2.right, _owner.pGroundChecker.pGroundNormal);
         }
     }   
 }

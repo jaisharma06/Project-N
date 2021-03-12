@@ -98,6 +98,39 @@
                     "isPartOfComposite": true
                 },
                 {
+                    "name": "LS",
+                    "id": "084bd05f-1e3d-4569-91f7-978fbb5c9652",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "8997785e-5640-49be-a725-aaae0fb72931",
+                    "path": "<Gamepad>/leftStick/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "GamePad",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "a779cd15-971b-491c-8f19-70e55257b8eb",
+                    "path": "<Gamepad>/leftStick/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "GamePad",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "",
                     "id": "95919064-df4b-436c-86c0-ed7ecc553b08",
                     "path": "<Keyboard>/space",
@@ -110,11 +143,33 @@
                 },
                 {
                     "name": "",
+                    "id": "f89aa090-b956-4d8b-ba1f-98056951fa82",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "GamePad",
+                    "action": "Jumping",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "9b9a8526-226f-4658-8ff0-f2be5e3eb91e",
                     "path": "<Keyboard>/ctrl",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
+                    "action": "Dodge",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "258837c0-91bf-415d-9dff-8f0a83d2592a",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "GamePad",
                     "action": "Dodge",
                     "isComposite": false,
                     "isPartOfComposite": false

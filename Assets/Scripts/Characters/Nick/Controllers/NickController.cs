@@ -24,6 +24,7 @@ namespace Characters.Nick
         public Collider2D pCollider { get; private set; }
         public Rigidbody2D pRigidbody { get; private set; }
         public GroundChecker pGroundChecker { get; private set; }
+        public NickHealthController pHealthController { get; private set; }
         public bool pIsJumping { get; set; }
         public bool pIsDodging { get; set; }
         public Direction pDodgeDirection { get; private set; }
@@ -37,7 +38,9 @@ namespace Characters.Nick
             pCollider = GetComponent<Collider2D>();
             controls = new InputMaster();
             pGroundChecker = GetComponent<GroundChecker>();
+            pHealthController = GetComponent<NickHealthController>();
             
+            pHealthController.SetMaxHealth(nickTraits.maxHealth);
             InitializeStateMachine();
             SetupPlayerInput();
         }
@@ -111,7 +114,7 @@ namespace Characters.Nick
 #if UNITY_EDITOR
             Debug.Log($"Dodging");
 #endif
-            if (!pIsDodging && pDodgeCooldownTimer <= 0)
+            if (pGroundChecker.pIsGrounded && !pIsDodging && pDodgeCooldownTimer <= 0)
             {
                 pIsDodging = true;
                 pDodgeDirection = (pCurrentSpeed > 0) ? Direction.RIGHT : Direction.LEFT;
