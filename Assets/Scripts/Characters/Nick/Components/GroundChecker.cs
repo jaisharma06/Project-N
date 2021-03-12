@@ -3,9 +3,13 @@ using UnityEngine;
 public class GroundChecker : MonoBehaviour
 {
     public LayerMask groundLayer;
-    public Vector2 capsuleSize;
+    public Vector2 characterSize;
+
+    private Vector2 footPosition;
+    private float circleRadius;
+
     public bool pIsGrounded { get; private set; }
-    
+
     private void Start()
     {
         pIsGrounded = true;
@@ -20,15 +24,22 @@ public class GroundChecker : MonoBehaviour
     private void SetCapsuleSize()
     {
         var spriteRenderer = GetComponentInChildren<Renderer>();
-        capsuleSize = spriteRenderer.bounds.size;
-        capsuleSize.y += 0.01f;
+        characterSize = spriteRenderer.bounds.size;
+        circleRadius = characterSize.x / 2.0f;
     }
 
     private bool IsGrounded()
     {
-        pIsGrounded =
-            Physics2D.OverlapCapsule(transform.position, capsuleSize, CapsuleDirection2D.Vertical, 0, groundLayer);
+        footPosition = transform.position;
+        footPosition.y -= characterSize.y / 2.0f - circleRadius + 0.2f;
+        pIsGrounded = Physics2D.OverlapCircle(footPosition, circleRadius, groundLayer);
 
         return pIsGrounded;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(footPosition, circleRadius);
     }
 }
