@@ -41,6 +41,14 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Attack"",
+                    ""type"": ""Button"",
+                    ""id"": ""bc92dcaf-702b-487e-afce-10502d71c0a1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -186,6 +194,28 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""action"": ""Dodge"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7bae562d-8e11-428d-82cc-180c15378fd5"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""GamePad"",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fb16411d-3c45-4bd4-ba79-ca286321195e"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -225,6 +255,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         m_Nick_Movement = m_Nick.FindAction("Movement", throwIfNotFound: true);
         m_Nick_Jumping = m_Nick.FindAction("Jumping", throwIfNotFound: true);
         m_Nick_Dodge = m_Nick.FindAction("Dodge", throwIfNotFound: true);
+        m_Nick_Attack = m_Nick.FindAction("Attack", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -277,6 +308,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
     private readonly InputAction m_Nick_Movement;
     private readonly InputAction m_Nick_Jumping;
     private readonly InputAction m_Nick_Dodge;
+    private readonly InputAction m_Nick_Attack;
     public struct NickActions
     {
         private @InputMaster m_Wrapper;
@@ -284,6 +316,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         public InputAction @Movement => m_Wrapper.m_Nick_Movement;
         public InputAction @Jumping => m_Wrapper.m_Nick_Jumping;
         public InputAction @Dodge => m_Wrapper.m_Nick_Dodge;
+        public InputAction @Attack => m_Wrapper.m_Nick_Attack;
         public InputActionMap Get() { return m_Wrapper.m_Nick; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -302,6 +335,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @Dodge.started -= m_Wrapper.m_NickActionsCallbackInterface.OnDodge;
                 @Dodge.performed -= m_Wrapper.m_NickActionsCallbackInterface.OnDodge;
                 @Dodge.canceled -= m_Wrapper.m_NickActionsCallbackInterface.OnDodge;
+                @Attack.started -= m_Wrapper.m_NickActionsCallbackInterface.OnAttack;
+                @Attack.performed -= m_Wrapper.m_NickActionsCallbackInterface.OnAttack;
+                @Attack.canceled -= m_Wrapper.m_NickActionsCallbackInterface.OnAttack;
             }
             m_Wrapper.m_NickActionsCallbackInterface = instance;
             if (instance != null)
@@ -315,6 +351,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @Dodge.started += instance.OnDodge;
                 @Dodge.performed += instance.OnDodge;
                 @Dodge.canceled += instance.OnDodge;
+                @Attack.started += instance.OnAttack;
+                @Attack.performed += instance.OnAttack;
+                @Attack.canceled += instance.OnAttack;
             }
         }
     }
@@ -342,5 +381,6 @@ public class @InputMaster : IInputActionCollection, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnJumping(InputAction.CallbackContext context);
         void OnDodge(InputAction.CallbackContext context);
+        void OnAttack(InputAction.CallbackContext context);
     }
 }

@@ -25,6 +25,7 @@ namespace Characters.Nick
         public Rigidbody2D pRigidbody { get; private set; }
         public GroundChecker pGroundChecker { get; private set; }
         public NickHealthController pHealthController { get; private set; }
+        public AttackHandler pAttackHandler { get; private set; }
         public bool pIsJumping { get; set; }
         public bool pIsDodging { get; set; }
         public Direction pDodgeDirection { get; private set; }
@@ -39,6 +40,7 @@ namespace Characters.Nick
             controls = new InputMaster();
             pGroundChecker = GetComponent<GroundChecker>();
             pHealthController = GetComponent<NickHealthController>();
+            pAttackHandler = GetComponent<AttackHandler>();
             
             pHealthController.SetMaxHealth(nickTraits.maxHealth);
             InitializeStateMachine();
@@ -86,6 +88,7 @@ namespace Characters.Nick
             controls.Nick.Movement.canceled += _ => UpdateSpeed(0);
             controls.Nick.Jumping.performed += _ => Jump();
             controls.Nick.Dodge.performed += _ => Dodge();
+            controls.Nick.Attack.performed += _ => pAttackHandler.DamageEnemy(); 
         }
 
         #region INPUT_HANDLERS
@@ -122,5 +125,12 @@ namespace Characters.Nick
         }
 
         #endregion
+
+        public void LookInDirection(Direction direction)
+        {
+            var localScale = transform.localScale;
+            localScale.x = (int)direction * Mathf.Abs(localScale.x);
+            transform.localScale = localScale;
+        }
     }
 }

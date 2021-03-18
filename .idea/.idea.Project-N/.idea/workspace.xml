@@ -4,17 +4,9 @@
     <list default="true" id="b958847e-fb28-4d2f-a7b6-4c53ddf2b495" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Project-N/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Project-N/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Project-N/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Project-N/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Characters/Nick/Nick.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Characters/Nick/Nick.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Level_1.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Level_1.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Characters/Nick/Components/GroundChecker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Characters/Nick/Components/GroundChecker.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Characters/Nick/Controllers/NickController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Characters/Nick/Controllers/NickController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Characters/Nick/Settings/Traits.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Characters/Nick/Settings/Traits.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Characters/Nick/States/Idle.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Characters/Nick/States/Idle.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Input/InputMaster.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Input/InputMaster.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Settings/Input/InputMaster.inputactions" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/Input/InputMaster.inputactions" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Characters/Nick/States/Jumping.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Characters/Nick/States/Jumping.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,13 +17,17 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Characters/Enemies/Settings/EnemyTraits.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Characters/Enemies/Common/States/Idle.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Characters/Nick/States/Dodging.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Characters/Nick/Enums/Direction.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../Personal/ThirdPersonController/Assets/Scripts/Characters/Common/AnvaratCharacterController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/UI/Editor/HealthbarEditor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Characters/Nick/States/Idle.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Characters/Nick/Settings/Traits.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../Personal/ThirdPersonController/Assets/Scripts/Characters/Vegh/VeghController.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../Personal/ThirdPersonController/Assets/Scripts/Characters/Vegh/GroundChecker.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Characters/Enemies/Common/EnemyController.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
@@ -40,7 +36,6 @@
       <option value="$PROJECT_DIR$/Assets/Scripts/Characters/Nick/Controllers/AnimationController.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Characters/Nick/States/Moving.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Characters/Nick/Enums/Direction.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Characters/Nick/States/Jumping.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Architecture/StateMachine.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Architecture/ParallelState.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Characters/Nick/States/Dodging.cs" />
@@ -51,6 +46,14 @@
       <option value="$PROJECT_DIR$/Assets/Scripts/Characters/Nick/Settings/Traits.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Characters/Nick/Controllers/NickController.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Characters/Nick/Components/GroundChecker.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Characters/Nick/Controllers/Editor/NickHealthControllerEditor.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/UI/Healthbar.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/UI/Editor/HealthbarEditor.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Characters/Editor/Common/EnemyController.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Characters/Nick/States/Jumping.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Characters/Enemies/Settings/EnemyTraits.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Characters/Enemies/Common/EnemyController.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Characters/Enemies/Common/States/Idle.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1pWNJQxJQVoTFFwe29hrxnLQwNQ" />
@@ -87,6 +90,9 @@
       <workItem from="1615486930271" duration="1059000" />
       <workItem from="1615540753675" duration="3797000" />
       <workItem from="1615556403678" duration="3441000" />
+      <workItem from="1615566305599" duration="2272000" />
+      <workItem from="1615579361230" duration="2495000" />
+      <workItem from="1615623021752" duration="1870000" />
     </task>
     <servers />
   </component>

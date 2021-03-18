@@ -275,6 +275,17 @@
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.Player.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
+        <e p="Prefabs" t="Include">
+          <e p="Characters" t="Include">
+            <e p="Enemies" t="Include">
+              <e p="Pawns" t="Include">
+                <e p="Common" t="Include">
+                  <e p="PawnController.cs" t="Include" />
+                </e>
+              </e>
+            </e>
+          </e>
+        </e>
         <e p="Scripts" t="Include">
           <e p="Architecture" t="Include">
             <e p="ParallelState.cs" t="Include" />
@@ -284,6 +295,17 @@
           <e p="Characters" t="Include">
             <e p="Common" t="Include">
               <e p="HealthController.cs" t="Include" />
+            </e>
+            <e p="Enemies" t="Include">
+              <e p="Common" t="Include">
+                <e p="EnemyController.cs" t="Include" />
+                <e p="States" t="Include">
+                  <e p="Idle.cs" t="Include" />
+                </e>
+              </e>
+              <e p="Settings" t="Include">
+                <e p="EnemyTraits.cs" t="Include" />
+              </e>
             </e>
             <e p="Nick" t="Include">
               <e p="Components" t="Include">
@@ -310,6 +332,12 @@
           </e>
           <e p="Input" t="Include">
             <e p="InputMaster.cs" t="Include" />
+          </e>
+          <e p="UI" t="Include">
+            <e p="Editor" t="Include">
+              <e p="HealthbarEditor.cs" t="Include" />
+            </e>
+            <e p="Healthbar.cs" t="Include" />
           </e>
           <e p="Utils" t="Include">
             <e p="Editor" t="Include">
