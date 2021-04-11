@@ -10,8 +10,6 @@ namespace Characters.Nick.States
         
         private Vector2 _jumpForce;
 
-        private const float GRAVITY_MULTIPLIER = -9.8f;
-
         public Jumping(NickController owner)
         {
             _owner = owner;
@@ -50,8 +48,6 @@ namespace Characters.Nick.States
 
         public override void OnExit()
         {
-            var fallingVelocity = _owner.pRigidbody.velocity.y;
-            Debug.Log($"falling velocity {fallingVelocity}");
             _owner.pAnimationController.SetVerticalSpeed(0);
             _owner.pAnimationController.SetIsInTheAir(false);
         }

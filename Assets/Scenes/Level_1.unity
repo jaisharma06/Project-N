@@ -1574,6 +1574,10 @@ PrefabInstance:
       propertyPath: m_Offset.y
       value: -0.16256952
       objectReference: {fileID: 0}
+    - target: {fileID: 3796766797091258385, guid: f436eb635664a714883cedaaf2ac3f01, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 8935943838725824381, guid: a7be8e07cb9013b468ac603c65bcc9d8, type: 3}
     - target: {fileID: 3796766797930636225, guid: f436eb635664a714883cedaaf2ac3f01, type: 3}
       propertyPath: m_Name
       value: Nick

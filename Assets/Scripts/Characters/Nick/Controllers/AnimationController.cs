@@ -26,6 +26,11 @@ namespace Characters.Nick
         {
             m_animator.SetBool("IsInAir", isInAir);
         }
+
+        public void SetIsDashing(bool isDashing) 
+        {
+            m_animator.SetBool("IsDashing", isDashing);
+        }
     }
 }
 

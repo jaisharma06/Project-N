@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: anim_nick_jump_idle_ascend
+  m_Name: anim_nick_dash
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,7 +20,7 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: -7604311892593253044, guid: d7cdd426fc3918e43b508d70a0e58880, type: 3}
+      value: {fileID: 6006491235266633406, guid: 20d7d88e86b7d0b4bbe6d9400f2fbe9f, type: 3}
     attribute: m_Sprite
     path: _Body
     classID: 212
@@ -40,7 +40,7 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: -7604311892593253044, guid: d7cdd426fc3918e43b508d70a0e58880, type: 3}
+    - {fileID: 6006491235266633406, guid: 20d7d88e86b7d0b4bbe6d9400f2fbe9f, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
