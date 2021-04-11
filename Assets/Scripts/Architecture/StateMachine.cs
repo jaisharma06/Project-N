@@ -35,6 +35,7 @@ namespace Anvarat.Architecture
         private void SwitchToNewState(Type nextState)
         {
             pCurrentState?.OnExit();
+            var lastState = pCurrentState;
             pCurrentState = _availableStates[nextState];
             pCurrentState?.OnEnter();
             onStateChangedEvent?.Invoke(pCurrentState);

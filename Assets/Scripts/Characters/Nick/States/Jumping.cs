@@ -10,6 +10,8 @@ namespace Characters.Nick.States
         
         private Vector2 _jumpForce;
 
+        private const float GRAVITY_MULTIPLIER = -9.8f;
+
         public Jumping(NickController owner)
         {
             _owner = owner;
@@ -22,12 +24,22 @@ namespace Characters.Nick.States
                 _owner.pIsJumping = false;
                 AddJumpForce();
             }
+
+            _owner.pAnimationController.SetIsInTheAir(true);
+            _owner.pAnimationController.SetWalkSpeed(Mathf.Abs(_owner.pRigidbody.velocity.x));
         }
 
         public override Type Tick()
         {
             if (!_owner.pGroundChecker.pIsGrounded)
             {
+                _owner.pAnimationController.SetVerticalSpeed(_owner.pRigidbody.velocity.y);
+                if(_owner.pRigidbody.velocity.y < 0){
+                    _owner.pRigidbody.velocity += Vector2.up * Physics2D.gravity.y * (_owner.nickTraits.fallMultiplier - 1) * Time.deltaTime;
+                }else if(_owner.pRigidbody.velocity.y > 0)
+                {
+                    _owner.pRigidbody.velocity += Vector2.up * Physics2D.gravity.y * (_owner.nickTraits.lowJumpMultiplier - 1) * Time.deltaTime;
+                }
                 return typeof(Jumping);
             }
             else
@@ -40,6 +52,8 @@ namespace Characters.Nick.States
         {
             var fallingVelocity = _owner.pRigidbody.velocity.y;
             Debug.Log($"falling velocity {fallingVelocity}");
+            _owner.pAnimationController.SetVerticalSpeed(0);
+            _owner.pAnimationController.SetIsInTheAir(false);
         }
 
         private void AddJumpForce()

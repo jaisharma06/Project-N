@@ -16,6 +16,11 @@ namespace Characters.Nick.States
             _owner = owner;
         }
 
+        public override void OnEnter()
+        {
+            _owner.pAnimationController.SetWalkSpeed(0);
+        }
+
         public override Type Tick()
         {
             if (!_owner.pGroundChecker.pIsGrounded || _owner.pIsJumping)

@@ -69,9 +69,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -277257213
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: b9c70af62e09dc84b8306249088e566a, type: 3}
+  m_Sprite: {fileID: 8935943838725824381, guid: a7be8e07cb9013b468ac603c65bcc9d8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -93,12 +93,12 @@ GameObject:
   - component: {fileID: 3796766797930636228}
   - component: {fileID: 3796766797930636227}
   - component: {fileID: 3796766797930636226}
-  - component: {fileID: 3796766797930636230}
+  - component: {fileID: 578691225131558298}
   - component: {fileID: 3796766797930636229}
   - component: {fileID: 1850179097}
   - component: {fileID: 1850179095}
-  - component: {fileID: 1850179096}
   - component: {fileID: 1850179103}
+  - component: {fileID: 8083318818900182219}
   m_Layer: 7
   m_Name: Nick
   m_TagString: Untagged
@@ -118,6 +118,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3796766797091258384}
+  - {fileID: 1772393867781547567}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -146,8 +147,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nickTraits: {fileID: 11400000, guid: 4f27c28892ffbbb498c4365483e2681b, type: 2}
---- !u!61 &3796766797930636230
-BoxCollider2D:
+--- !u!70 &578691225131558298
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -159,19 +160,9 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_Offset: {x: 0.008511782, y: -0.53623724}
+  m_Size: {x: 1.1979594, y: 4.0471888}
+  m_Direction: 0
 --- !u!50 &3796766797930636229
 Rigidbody2D:
   serializedVersion: 4
@@ -203,7 +194,7 @@ Animator:
   m_GameObject: {fileID: 3796766797930636225}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0414654db4b9fec44b94822fa773d5ae, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -227,18 +218,6 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
---- !u!114 &1850179096
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3796766797930636225}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d49e6ab387f43634a8ffef400f4b0a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1850179103
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,3 +231,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 1
+--- !u!114 &8083318818900182219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3796766797930636225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e5714e5123b69747b3d27c5aa4bf10a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_attackPoint: {fileID: 1772393867781547567}
+  m_range: 1
+  m_damage: 0.2
+  m_enemyLayer:
+    serializedVersion: 2
+    m_Bits: 0
+--- !u!1 &5279072144918453277
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1772393867781547567}
+  m_Layer: 7
+  m_Name: swordPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1772393867781547567
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5279072144918453277}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1, y: -3.22, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3796766797930636228}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

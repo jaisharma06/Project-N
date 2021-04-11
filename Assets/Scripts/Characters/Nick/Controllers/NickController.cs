@@ -26,6 +26,7 @@ namespace Characters.Nick
         public GroundChecker pGroundChecker { get; private set; }
         public NickHealthController pHealthController { get; private set; }
         public AttackHandler pAttackHandler { get; private set; }
+        public AnimationController pAnimationController { get; private set; }
         public bool pIsJumping { get; set; }
         public bool pIsDodging { get; set; }
         public Direction pDodgeDirection { get; private set; }
@@ -41,7 +42,8 @@ namespace Characters.Nick
             pGroundChecker = GetComponent<GroundChecker>();
             pHealthController = GetComponent<NickHealthController>();
             pAttackHandler = GetComponent<AttackHandler>();
-            
+            pAnimationController = GetComponent<AnimationController>();
+
             pHealthController.SetMaxHealth(nickTraits.maxHealth);
             InitializeStateMachine();
             SetupPlayerInput();

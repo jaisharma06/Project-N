@@ -9,6 +9,8 @@ namespace Characters.Nick.Settings
     {
         public float maxSlope = 45f;
         public float jumpForce = 4f;
+        public float fallMultiplier = 2.5f;
+        public float lowJumpMultiplier = 2f;
         public float walkSpeed = 4f;
         public float dodgeSpeed = 10f;
         public float dodgeTime = 1f;

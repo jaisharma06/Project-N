@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSlope: 45
   jumpForce: 5
-  walkSpeed: 5
-  dodgeSpeed: 20
-  dodgeTime: 0.2
+  walkSpeed: 17
+  dodgeSpeed: 70
+  dodgeTime: 0.1
   dodgeCooldownTime: 1
+  maxHealth: 1
   characterName: Nick
