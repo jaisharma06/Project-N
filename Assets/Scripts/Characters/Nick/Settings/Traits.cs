@@ -14,7 +14,7 @@ namespace Characters.Nick.Settings
         public float walkSpeed = 4f;
         public float dodgeSpeed = 10f;
         public float dodgeTime = 1f;
-        public float slidingVelocity = 5f;
+        public float slidingSpeed = 5f;
         public float moveCooldownTimeAfterDodge = 0.2f;
         public float dodgeCooldownTime = 1f;
         public float maxHealth = 1f;

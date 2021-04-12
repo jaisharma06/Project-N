@@ -11,6 +11,7 @@ namespace Characters.Nick.States
         private float cooldownAfterDodgeTimer;
         private int direction;
         private bool isSliding;
+        private float currentSpeed;
 
         public Dodging(NickController owner)
         {
@@ -31,6 +32,7 @@ namespace Characters.Nick.States
         public override Type Tick()
         {
             dodgeTimer += Time.deltaTime;
+
             if (cooldownAfterDodgeTimer >= _owner.nickTraits.moveCooldownTimeAfterDodge)
             {
                 return typeof(Idle);
@@ -44,23 +46,23 @@ namespace Characters.Nick.States
                     _owner.pAnimationController.SetIsDashing(false);
                     _owner.pAnimationController.SetSliding(true);
                 }
-                SetSlidingVelocity();
+                currentSpeed = _owner.nickTraits.slidingSpeed;
             }
             else
             {
-                SetVelocity();
+                currentSpeed = _owner.nickTraits.dodgeSpeed;
             }
+            if (!_owner.pEdgeDetector.pIsOnGround)
+            {
+                currentSpeed = 0;
+            }
+            SetVelocity();
             return typeof(Dodging);
         }
         
         private void SetVelocity()
         {
-            _owner.pRigidbody.velocity = Vector2.right * direction * _owner.nickTraits.dodgeSpeed;
-        }
-
-        private void SetSlidingVelocity()
-        {
-            _owner.pRigidbody.velocity = Vector2.right * direction * _owner.nickTraits.slidingVelocity;
+            _owner.pRigidbody.velocity = Vector2.right * direction * currentSpeed;
         }
 
         public override void OnExit()
