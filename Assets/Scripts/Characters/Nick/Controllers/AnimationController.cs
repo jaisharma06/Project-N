@@ -19,6 +19,7 @@ namespace Characters.Nick
 
         public void SetVerticalSpeed(float verticalSpeed)
         {
+            verticalSpeed = Mathf.Clamp(verticalSpeed, -1, 1);
             m_animator.SetFloat("VerticalSpeed", verticalSpeed);
         }
 
@@ -30,6 +31,11 @@ namespace Characters.Nick
         public void SetIsDashing(bool isDashing) 
         {
             m_animator.SetBool("IsDashing", isDashing);
+        }
+
+        public void SetSliding(bool isSliding)
+        {
+            m_animator.SetBool("IsSliding", isSliding);
         }
     }
 }
