@@ -11,7 +11,6 @@ namespace Characters.Nick
             m_animator = GetComponent<Animator>();
         }
 
-
         public void SetWalkSpeed(float speed)
         {
             m_animator.SetFloat("Speed", speed);

@@ -19,6 +19,8 @@ MonoBehaviour:
   walkSpeed: 17
   dodgeSpeed: 30
   dodgeTime: 0.25
+  slidingSpeed: 5
+  moveCooldownTimeAfterDodge: 0.5
   dodgeCooldownTime: 1
   maxHealth: 1
   characterName: Nick
