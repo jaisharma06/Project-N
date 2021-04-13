@@ -9,6 +9,9 @@ namespace Characters.Nick.States
         private NickController _owner;
         
         private Vector2 _jumpForce;
+        private Vector2 _horizontalForce;
+        private Vector2 _velocity;
+        private bool isLowHeightApplied;
 
         public Jumping(NickController owner)
         {
@@ -23,6 +26,9 @@ namespace Characters.Nick.States
                 AddJumpForce();
             }
 
+            isLowHeightApplied = false;
+            _horizontalForce = new Vector2();
+            _velocity = new Vector2();
             _owner.pAnimationController.SetIsInTheAir(true);
             _owner.pAnimationController.SetWalkSpeed(Mathf.Abs(_owner.pRigidbody.velocity.x));
         }
@@ -32,12 +38,39 @@ namespace Characters.Nick.States
             if (!_owner.pGroundChecker.pIsGrounded)
             {
                 _owner.pAnimationController.SetVerticalSpeed(_owner.pRigidbody.velocity.y);
-                if(_owner.pRigidbody.velocity.y < 0){
-                    _owner.pRigidbody.velocity += Vector2.up * Physics2D.gravity.y * (_owner.nickTraits.fallMultiplier - 1) * Time.deltaTime;
-                }else if(_owner.pRigidbody.velocity.y > 0)
+                _owner.pRigidbody.velocity += Vector2.up * Physics2D.gravity.y * (_owner.nickTraits.fallMultiplier - 1) * Time.deltaTime;
+                
+                //Control the character movement during jump
+                if(_owner.pCurrentSpeed != 0)
                 {
-                    _owner.pRigidbody.velocity += Vector2.up * Physics2D.gravity.y * (_owner.nickTraits.lowJumpMultiplier - 1) * Time.deltaTime;
+                    _horizontalForce.x = _owner.nickTraits.movementForceInAir * Mathf.Sign(_owner.pCurrentSpeed);
+                    _horizontalForce.y = 0;
+                    _owner.pRigidbody.AddForce(_horizontalForce);
+
+                    if(Mathf.Abs(_owner.pRigidbody.velocity.x) > _owner.nickTraits.walkSpeed)
+                    {
+                        _velocity = _owner.pRigidbody.velocity;
+                        _velocity.x = _owner.nickTraits.walkSpeed * Mathf.Sign(_owner.pCurrentSpeed);
+                        _owner.pRigidbody.velocity = _velocity;
+                    }
+
+                    _owner.LookInDirection(_owner.pRigidbody.velocity.x);
                 }
+                else
+                {
+                    _velocity = _owner.pRigidbody.velocity;
+                    _velocity.x = _owner.pRigidbody.velocity.x * _owner.nickTraits.airDragMultiplier;
+                    _owner.pRigidbody.velocity = _velocity;
+                }
+
+                if (!isLowHeightApplied && !_owner.pIsHoldingJump)
+                {
+                    _velocity = _owner.pRigidbody.velocity;
+                    _velocity.y = _owner.pRigidbody.velocity.y * _owner.nickTraits.variableJumpHeightMultiplier;
+                    _owner.pRigidbody.velocity = _velocity;
+                    isLowHeightApplied = true;
+                }
+                
                 return typeof(Jumping);
             }
             else
@@ -54,11 +87,10 @@ namespace Characters.Nick.States
 
         private void AddJumpForce()
         {
-            _jumpForce.x = _owner.pCurrentSpeed;
+            _jumpForce.x = _owner.pRigidbody.velocity.x;
             _jumpForce.y = _owner.nickTraits.jumpForce;
-            
-            _owner.pRigidbody.velocity = Vector2.zero;
-            _owner.pRigidbody.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
+
+            _owner.pRigidbody.velocity = _jumpForce;
         }
     }   
 }

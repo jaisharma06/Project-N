@@ -32,6 +32,7 @@ namespace Characters.Nick
         public bool pIsDodging { get; set; }
         public Direction pDodgeDirection { get; private set; }
         public float pDodgeCooldownTimer { get; set; }
+        public bool pIsHoldingJump { get; private set; }
         #endregion
 
         #region UNITY_BUILT_IN_METHODS
@@ -91,6 +92,7 @@ namespace Characters.Nick
             controls.Nick.Movement.performed += ctx => UpdateSpeed(ctx.ReadValue<float>());
             controls.Nick.Movement.canceled += _ => UpdateSpeed(0);
             controls.Nick.Jumping.performed += _ => Jump();
+            controls.Nick.Jumping.canceled += _ => JumpKeyReleased();
             controls.Nick.Dodge.performed += _ => Dodge();
             controls.Nick.Attack.performed += _ => pAttackHandler.DamageEnemy(); 
         }
@@ -113,7 +115,13 @@ namespace Characters.Nick
             if (pGroundChecker.pIsGrounded)
             {
                 pIsJumping = true;
+                pIsHoldingJump = true;
             }
+        }
+
+        private void JumpKeyReleased()
+        {
+            pIsHoldingJump = false;
         }
 
         private void Dodge()
@@ -135,6 +143,12 @@ namespace Characters.Nick
             var localScale = transform.localScale;
             localScale.x = (int)direction * Mathf.Abs(localScale.x);
             transform.localScale = localScale;
+        }
+
+        public void LookInDirection(float speed)
+        {
+            var direction = (Direction)Mathf.Sign(speed);
+            LookInDirection(direction);
         }
     }
 }
