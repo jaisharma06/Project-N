@@ -35,6 +35,10 @@ namespace Characters.Nick.States
 
         public override Type Tick()
         {
+            if (_owner.pIsWallSliding)
+            {
+                return typeof(WallSliding);
+            }
             if (!_owner.pGroundChecker.pIsGrounded)
             {
                 _owner.pAnimationController.SetVerticalSpeed(_owner.pRigidbody.velocity.y);

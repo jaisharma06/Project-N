@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: NickSettings
   m_EditorClassIdentifier: 
   maxSlope: 45
+  amountOfJumps: 1
   jumpForce: 12
   fallMultiplier: 3.5
   airDragMultiplier: 0.95
@@ -26,3 +27,9 @@ MonoBehaviour:
   dodgeCooldownTime: 1
   maxHealth: 1
   characterName: Nick
+  wallHopDirection: {x: 0, y: 0}
+  wallJumpDirection: {x: 0, y: 0}
+  wallHopForce: 0
+  wallJumpForce: 0
+  wallSlideSpeed: 0.7
+  wallSlideStartTime: 2

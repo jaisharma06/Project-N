@@ -30,7 +30,13 @@ namespace Characters.Nick
         public EdgeDetector pEdgeDetector { get; private set; }
         public bool pIsJumping { get; set; }
         public bool pIsDodging { get; set; }
-        public Direction pDodgeDirection { get; private set; }
+        public bool pIsWallSliding { get; set; }
+        public bool pIsTouchingWall { get => pGroundChecker.pIsTouchingWall; }
+        public bool pIsGrounded { get => pGroundChecker.pIsGrounded; }
+        public bool pCanJump { get => CheckIfCanJump();  }
+        public MovementDirection pFacingDirection { get; private set; } = MovementDirection.RIGHT;
+        public MovementDirection pDodgeDirection { get; private set; }
+        public int pAmountOfJumpsLeft { get; private set; } = 1;
         public float pDodgeCooldownTimer { get; set; }
         public bool pIsHoldingJump { get; private set; }
         #endregion
@@ -46,6 +52,9 @@ namespace Characters.Nick
             pAttackHandler = GetComponent<AttackHandler>();
             pAnimationController = GetComponent<AnimationController>();
             pEdgeDetector = GetComponentInChildren<EdgeDetector>();
+
+            nickTraits.wallHopDirection.Normalize();
+            nickTraits.wallJumpDirection.Normalize();
 
             pHealthController.SetMaxHealth(nickTraits.maxHealth);
             InitializeStateMachine();
@@ -71,7 +80,8 @@ namespace Characters.Nick
                 { typeof(Idle), new Idle(this)},
                 { typeof(Moving), new Moving(this)},
                 { typeof(Jumping), new Jumping(this)},
-                { typeof(Dodging), new Dodging(this)}
+                { typeof(Dodging), new Dodging(this)},
+                { typeof(WallSliding), new WallSliding(this)}
             };
 
             var parallelState = new ParallelState();
@@ -81,6 +91,8 @@ namespace Characters.Nick
                 {
                     pDodgeCooldownTimer -= Time.deltaTime;
                 }
+
+                CheckIfWallSliding();
             });
             
             _stateMachine.SetParallelState(parallelState);
@@ -101,21 +113,26 @@ namespace Characters.Nick
 
         private void UpdateSpeed(float speed)
         {
-#if UNITY_EDITOR
-            Debug.Log($"Player Speed: {speed}");
-#endif
             pCurrentSpeed = speed;
         }
 
         private void Jump()
         {
-#if UNITY_EDITOR
-            Debug.Log($"Jumping");
-#endif
-            if (pGroundChecker.pIsGrounded)
+            if (pCanJump)
             {
                 pIsJumping = true;
                 pIsHoldingJump = true;
+                pAmountOfJumpsLeft--;
+            }
+            else if(pIsWallSliding && pCurrentSpeed == 0 && pCanJump)//Wall Hop
+            {
+                pIsWallSliding = false;
+                pAmountOfJumpsLeft--;
+            }
+            else if((pIsWallSliding || pIsTouchingWall) && pCurrentSpeed != 0 && pCanJump)
+            {
+                pIsWallSliding = false;
+                pAmountOfJumpsLeft--;
             }
         }
 
@@ -126,29 +143,56 @@ namespace Characters.Nick
 
         private void Dodge()
         {
-#if UNITY_EDITOR
-            Debug.Log($"Dodging");
-#endif
             if (pGroundChecker.pIsGrounded && !pIsDodging && pDodgeCooldownTimer <= 0)
             {
                 pIsDodging = true;
-                pDodgeDirection = (pCurrentSpeed > 0) ? Direction.RIGHT : Direction.LEFT;
+                pDodgeDirection = (pCurrentSpeed > 0) ? MovementDirection.RIGHT : MovementDirection.LEFT;
             }
         }
 
         #endregion
 
-        public void LookInDirection(Direction direction)
+        public void LookInDirection(MovementDirection direction)
         {
             var localScale = transform.localScale;
             localScale.x = (int)direction * Mathf.Abs(localScale.x);
             transform.localScale = localScale;
+            pFacingDirection = direction;
         }
 
         public void LookInDirection(float speed)
         {
-            var direction = (Direction)Mathf.Sign(speed);
+            var direction = (MovementDirection)Mathf.Sign(speed);
             LookInDirection(direction);
+        }
+
+        private bool CheckIfCanJump()
+        {
+            if((pGroundChecker.pIsGrounded && pRigidbody.velocity.y <= 0) || pIsWallSliding)
+            {
+                pAmountOfJumpsLeft = nickTraits.amountOfJumps;
+            }
+
+            if(pAmountOfJumpsLeft <= 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        private void CheckIfWallSliding()
+        {
+            if (pIsTouchingWall && !pIsGrounded && pRigidbody.velocity.y < 0)
+            {
+                pIsWallSliding = true;
+            }
+            else
+            {
+                pIsWallSliding = false;
+            }
         }
     }
 }

@@ -22,11 +22,10 @@ namespace Characters.Nick.States
         {
             dodgeTimer = 0;
             cooldownAfterDodgeTimer = 0f;
-            _owner.pIsDodging = false;
             isSliding = false;
             direction = (int)_owner.pDodgeDirection;
             _owner.pAnimationController.SetIsDashing(true);
-            _owner.LookInDirection((Direction)direction);
+            _owner.LookInDirection((MovementDirection)direction);
         }
 
         public override Type Tick()
@@ -68,6 +67,7 @@ namespace Characters.Nick.States
         public override void OnExit()
         {
             _owner.pDodgeCooldownTimer = _owner.nickTraits.dodgeCooldownTime;
+            _owner.pIsDodging = false;
             _owner.pAnimationController.SetSliding(false);
         }
     }

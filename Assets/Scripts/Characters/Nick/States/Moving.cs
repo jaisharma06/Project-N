@@ -36,7 +36,7 @@ namespace Characters.Nick.States
                 _velocity.x = _owner.pCurrentSpeed * _owner.nickTraits.walkSpeed;
                 _velocity.y = _owner.pRigidbody.velocity.y;
                 _owner.pRigidbody.velocity = _velocity;
-                _owner.LookInDirection((Direction)(Mathf.Sign(_velocity.x)));
+                _owner.LookInDirection((MovementDirection)(Mathf.Sign(_velocity.x)));
                 return typeof(Moving);
             }
             else

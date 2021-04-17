@@ -36,6 +36,11 @@ namespace Characters.Nick
         {
             m_animator.SetBool("IsSliding", isSliding);
         }
+
+        public void SetWallSliding(bool isWallSliding)
+        {
+            m_animator.SetBool("IsWallSliding", isWallSliding);
+        }
     }
 }
 
