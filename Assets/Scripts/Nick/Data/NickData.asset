@@ -23,8 +23,8 @@ MonoBehaviour:
   wallSlideVelocity: 3
   slideStartTime: 0.5
   wallClimbVelocity: 3
-  startOffset: {x: 0, y: 0}
-  stopOffset: {x: 0, y: 0}
+  startOffset: {x: 0.8, y: -2}
+  stopOffset: {x: 1.4, y: -3}
   dashCooldown: 0.5
   maxHoldTime: 0
   holdTimeScale: 0.25
