@@ -23,6 +23,7 @@ namespace ProjectN.Characters.Nick.Data
 
         [Header("Wall Slide State")]
         public float wallSlideVelocity = 3f;
+        public float slideStartTime = 0.5f;
 
         [Header("Wall Climb State")]
         public float wallClimbVelocity = 3f;
@@ -40,6 +41,8 @@ namespace ProjectN.Characters.Nick.Data
         public float drag = 10f;
         public float dashEndYMultiplier = 0.2f;
         public float distBetweenAfterImages = 0.5f;
+        public float dashSlideTime = 0.2f;
+        public float dashSlideSpeed = 5f;
 
         [Header("Crouch States")]
         public float crouchMovementVelocity = 5f;

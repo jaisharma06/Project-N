@@ -21,6 +21,7 @@ MonoBehaviour:
   coyoteTime: 0.2
   variableJumpHeightMultiplier: 0.5
   wallSlideVelocity: 3
+  slideStartTime: 0.5
   wallClimbVelocity: 3
   startOffset: {x: 0, y: 0}
   stopOffset: {x: 0, y: 0}
@@ -32,6 +33,8 @@ MonoBehaviour:
   drag: 10
   dashEndYMultiplier: 0.2
   distBetweenAfterImages: 0.5
+  dashSlideTime: 0.3
+  dashSlideSpeed: 5
   crouchMovementVelocity: 5
   crouchColliderHeight: 0.8
   standColliderHeight: 1.6

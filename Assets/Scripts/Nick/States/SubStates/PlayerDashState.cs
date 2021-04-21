@@ -12,6 +12,8 @@ namespace ProjectN.Characters.Nick.States
         private bool dashInputStop;
 
         private float lastDashTime;
+        private float dashSlideStartTime;
+        private bool isDashComplete;
 
         private Vector2 dashDirection;
         private Vector2 dashDirectionInput;
@@ -32,6 +34,7 @@ namespace ProjectN.Characters.Nick.States
 
             Time.timeScale = playerData.holdTimeScale;
             startTime = Time.unscaledTime;
+            isDashComplete = false;
 
             //player.DashDirectionIndicator.gameObject.SetActive(true);
 
@@ -90,8 +93,25 @@ namespace ProjectN.Characters.Nick.States
                     if (Time.time >= startTime + playerData.dashTime)
                     {
                         player.RB.drag = 0f;
-                        isAbilityDone = true;
-                        lastDashTime = Time.time;
+                        if (!isDashComplete)
+                        {
+                            isDashComplete = true;
+                            dashSlideStartTime = Time.time;
+                            player.Anim.SetBool(animBoolName, false);
+                            player.Anim.SetBool("dashSlide", true);
+                        }
+                    }
+
+                    if (isDashComplete)
+                    {
+                        player.SetVelocityX(dashDirection.x * playerData.dashSlideSpeed);
+
+                        if(Time.time > dashSlideStartTime + playerData.dashSlideTime)
+                        {
+                            player.Anim.SetBool("dashSlide", false);
+                            isAbilityDone = true;
+                            lastDashTime = Time.time;
+                        }
                     }
                 }
             }

@@ -14,7 +14,7 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
 
         protected float startTime;
 
-        private string animBoolName;
+        protected string animBoolName;
 
         public PlayerState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName)
         {
