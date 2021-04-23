@@ -121,7 +121,7 @@ namespace ProjectN.Characters.Nick.States
             }
             else if (dashInput && player.DashState.CheckIfCanDash())
             {
-                stateMachine.ChangeState(player.DashState);
+                //stateMachine.ChangeState(player.DashState);
             }
             else
             {

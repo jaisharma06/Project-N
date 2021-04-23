@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: anim_nick_idle
+  m_Name: anim_nick_wall_grab
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,7 +20,7 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: -7918626413456540703, guid: 4ef27c8b20cb25d4698374e32302a9d4, type: 3}
+      value: {fileID: 6738625004225464283, guid: 49310d40f7d4ab544ada256b8dfe3178, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -40,7 +40,7 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: -7918626413456540703, guid: 4ef27c8b20cb25d4698374e32302a9d4, type: 3}
+    - {fileID: 6738625004225464283, guid: 49310d40f7d4ab544ada256b8dfe3178, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
