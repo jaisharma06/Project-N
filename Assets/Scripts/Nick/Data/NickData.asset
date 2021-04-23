@@ -33,7 +33,7 @@ MonoBehaviour:
   drag: 10
   dashEndYMultiplier: 0.2
   distBetweenAfterImages: 0.5
-  dashSlideTime: 0.3
+  dashSlideTime: 0.2
   dashSlideSpeed: 5
   crouchMovementVelocity: 5
   crouchColliderHeight: 0.8

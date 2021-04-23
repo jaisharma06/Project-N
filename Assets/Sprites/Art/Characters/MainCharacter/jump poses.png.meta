@@ -1,19 +1,25 @@
 fileFormatVersion: 2
-guid: 52d294a8721cf2246869754113aa6009
+guid: 89cdf277de2fb1f4b8493e50d4990fc7
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6001912195754876329
-    second: idleSpritesheet_0
+      213: -2993505114023539896
+    second: jump_up_1
   - first:
-      213: -7621771098838099175
-    second: idleSpritesheet_1
+      213: -2677369199148552434
+    second: jump_up_2
   - first:
-      213: -3279547223448280677
-    second: idleSpritesheet_2
+      213: -5641161115306608247
+    second: jump_up_2x
   - first:
-      213: -3073639696261990981
-    second: idleSpritesheet_3
+      213: -2397435117903561200
+    second: jump_up_1x
+  - first:
+      213: 233207070612244247
+    second: jump_up_3
+  - first:
+      213: 7902379118515348530
+    second: fall
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -115,7 +121,49 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: idleSpritesheet_0
+      name: jump_up_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84bcf4585fee476d0800000000000000
+      internalID: -2993505114023539896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: jump_up_2
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e0fad2016e218dad0800000000000000
+      internalID: -2677369199148552434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: jump_up_2x
       rect:
         serializedVersion: 2
         x: 0
@@ -123,20 +171,20 @@ TextureImporter:
         width: 512
         height: 512
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 75222fe48ace4bca0800000000000000
-      internalID: -6001912195754876329
+      spriteID: 98937619ad196b1b0800000000000000
+      internalID: -5641161115306608247
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idleSpritesheet_1
+      name: jump_up_1x
       rect:
         serializedVersion: 2
         x: 512
@@ -144,20 +192,20 @@ TextureImporter:
         width: 512
         height: 512
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 91b9a6641970a3690800000000000000
-      internalID: -7621771098838099175
+      spriteID: 01ebf4166799abed0800000000000000
+      internalID: -2397435117903561200
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idleSpritesheet_2
+      name: jump_up_3
       rect:
         serializedVersion: 2
         x: 0
@@ -165,20 +213,20 @@ TextureImporter:
         width: 512
         height: 512
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b912f321d25bc72d0800000000000000
-      internalID: -3279547223448280677
+      spriteID: 717c3fa58948c3300800000000000000
+      internalID: 233207070612244247
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idleSpritesheet_3
+      name: fall
       rect:
         serializedVersion: 2
         x: 512
@@ -186,14 +234,14 @@ TextureImporter:
         width: 512
         height: 512
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bb5b3c82bfc3855d0800000000000000
-      internalID: -3073639696261990981
+      spriteID: 234629f80f3eaad60800000000000000
+      internalID: 7902379118515348530
       vertices: []
       indices: 
       edges: []
