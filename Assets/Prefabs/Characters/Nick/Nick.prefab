@@ -99,11 +99,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3796766797930636228}
-  - component: {fileID: 972274789526815184}
   - component: {fileID: 7657646830589750995}
   - component: {fileID: 1078383906763814586}
   - component: {fileID: 8249984743474961691}
   - component: {fileID: 4788557199280813044}
+  - component: {fileID: 2002796252}
   m_Layer: 7
   m_Name: Nick
   m_TagString: Player
@@ -128,32 +128,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &972274789526815184
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3796766797930636225}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 6200000, guid: 221e663815c0c544e945ff8cb6c37b7a, type: 2}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.22709793, y: -0.21392536}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5.12, y: 5.12}
-    newSize: {x: 5.12, y: 5.12}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.8940448, y: 4.627527}
-  m_EdgeRadius: 0
 --- !u!50 &7657646830589750995
 Rigidbody2D:
   serializedVersion: 4
@@ -354,6 +328,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputHoldTime: 0.2
+--- !u!70 &2002796252
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3796766797930636225}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.22130644, y: -0.24109745}
+  m_Size: {x: 1.8032491, y: 4.6231003}
+  m_Direction: 0
 --- !u!1 &4566620413612611632
 GameObject:
   m_ObjectHideFlags: 0
@@ -378,7 +368,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4566620413612611632}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.29, y: -2.2, z: 0}
+  m_LocalPosition: {x: -0.23, y: -1.756, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5270559148889031468}

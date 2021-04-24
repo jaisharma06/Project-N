@@ -38,7 +38,7 @@ MonoBehaviour:
   crouchMovementVelocity: 5
   crouchColliderHeight: 0.8
   standColliderHeight: 1.6
-  groundCheckRadius: 0.6
+  groundCheckRadius: 0.8
   wallCheckDistance: 1.1
   groundLayer:
     serializedVersion: 2
