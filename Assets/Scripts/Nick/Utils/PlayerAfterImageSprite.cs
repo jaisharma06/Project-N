@@ -26,7 +26,7 @@ namespace ProjectN.Characters.Nick.Utils
         {
             SR = GetComponent<SpriteRenderer>();
             player = GameObject.FindGameObjectWithTag("Player").transform;
-            playerSR = player.GetComponent<SpriteRenderer>();
+            playerSR = player.GetComponentInChildren<SpriteRenderer>();
 
             alpha = alphaSet;
             SR.sprite = playerSR.sprite;

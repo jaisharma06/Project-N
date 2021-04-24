@@ -75,7 +75,7 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
 
         private void Start()
         {
-            Anim = GetComponent<Animator>();
+            Anim = GetComponentInChildren<Animator>();
             InputHandler = GetComponent<PlayerInputHandler>();
             RB = GetComponent<Rigidbody2D>();
             //DashDirectionIndicator = transform.Find("DashDirectionIndicator");
@@ -193,9 +193,9 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
             return workspace;
         }
 
-        private void AnimationTrigger() => StateMachine.CurrentState.AnimationTrigger();
+        public void AnimationTrigger() => StateMachine.CurrentState.AnimationTrigger();
 
-        private void AnimtionFinishTrigger() => StateMachine.CurrentState.AnimationFinishTrigger();
+        public void AnimtionFinishTrigger() => StateMachine.CurrentState.AnimationFinishTrigger();
 
         private void Flip()
         {
