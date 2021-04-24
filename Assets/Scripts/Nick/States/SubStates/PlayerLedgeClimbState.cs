@@ -60,6 +60,7 @@ namespace ProjectN.Characters.Nick
             if (isClimbing)
             {
                 player.transform.position = stopPos;
+                player.GetComponentInChildren<SpriteRenderer>().transform.position = Vector3.zero;
                 isClimbing = false;
             }
         }
