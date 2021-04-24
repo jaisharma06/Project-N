@@ -1,6 +1,7 @@
 using ProjectN.Characters.Nick.Data;
 using ProjectN.Characters.Nick.Input;
 using ProjectN.Characters.Nick.States;
+using ProjectN.Characters.Nick.Weapons.Inventory;
 using UnityEngine;
 
 namespace ProjectN.Characters.Nick.FiniteStateMachine
@@ -22,6 +23,7 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
         public PlayerDashState DashState { get; private set; }
         public PlayerCrouchIdleState CrouchIdleState { get; private set; }
         public PlayerCrouchMoveState CrouchMoveState { get; private set; }
+        public PlayerAttackState PrimaryAttackState { get; private set; }
 
         [SerializeField]
         private PlayerData playerData;
@@ -33,6 +35,7 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
         public Rigidbody2D RB { get; private set; }
         //public Transform DashDirectionIndicator { get; private set; }
         public BoxCollider2D MovementCollider { get; private set; }
+        public PlayerInventory Inventory { get; private set; }
         #endregion
 
         #region Check Transforms
@@ -71,6 +74,7 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
             DashState = new PlayerDashState(this, StateMachine, playerData, "dash");
             CrouchIdleState = new PlayerCrouchIdleState(this, StateMachine, playerData, "crouchIdle");
             CrouchMoveState = new PlayerCrouchMoveState(this, StateMachine, playerData, "crouchMove");
+            PrimaryAttackState = new PlayerAttackState(this, StateMachine, playerData, "attack");
         }
 
         private void Start()
@@ -80,8 +84,10 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
             RB = GetComponent<Rigidbody2D>();
             //DashDirectionIndicator = transform.Find("DashDirectionIndicator");
             MovementCollider = GetComponent<BoxCollider2D>();
+            Inventory = GetComponent<PlayerInventory>();
 
             FacingDirection = 1;
+            PrimaryAttackState.SetWeapon(Inventory.weapons[(int)CombatInputs.primary]);
             StateMachine.Initialize(IdleState);
         }
 

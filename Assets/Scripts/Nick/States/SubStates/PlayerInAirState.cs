@@ -86,7 +86,7 @@ namespace ProjectN.Characters.Nick.States
 
             if (player.InputHandler.AttackInputs[(int)CombatInputs.primary])
             {
-                //stateMachine.ChangeState(player.PrimaryAttackState);
+                stateMachine.ChangeState(player.PrimaryAttackState);
             }
             else if (player.InputHandler.AttackInputs[(int)CombatInputs.secondary])
             {
