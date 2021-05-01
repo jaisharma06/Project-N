@@ -43,7 +43,7 @@ namespace ProjectN.Characters.Nick.States
                 }
                 else if (yInput == -1)
                 {
-                    stateMachine.ChangeState(player.CrouchMoveState);
+                    //stateMachine.ChangeState(player.CrouchMoveState);
                 }
             }
         }

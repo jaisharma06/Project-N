@@ -71,14 +71,14 @@ namespace ProjectN.Characters.Nick
 
             if (isAnimationFinished)
             {
-                if (isTouchingCeiling)
-                {
-                    stateMachine.ChangeState(player.CrouchIdleState);
-                }
-                else
-                {
-                    stateMachine.ChangeState(player.IdleState);
-                }
+                //if (isTouchingCeiling)
+                //{
+                //    stateMachine.ChangeState(player.CrouchIdleState);
+                //}
+                //else
+                //{
+                //}
+                stateMachine.ChangeState(player.IdleState);
             }
             else
             {
