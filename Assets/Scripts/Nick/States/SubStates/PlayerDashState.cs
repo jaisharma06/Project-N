@@ -104,6 +104,14 @@ namespace ProjectN.Characters.Nick.States
 
                     if (isDashComplete)
                     {
+                        if (!player.CheckIfGrounded())
+                        {
+                            player.Anim.SetBool("dashSlide", false);
+                            isAbilityDone = true;
+                            lastDashTime = Time.time;
+                            return;
+                        }
+
                         player.SetVelocityX(dashDirection.x * playerData.dashSlideSpeed);
 
                         if (Time.time > dashSlideStartTime + playerData.dashSlideTime)

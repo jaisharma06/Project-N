@@ -115,8 +115,6 @@ namespace ProjectN.Characters.Nick.States
             }
             else if (isTouchingWall && grabInput && isTouchingLedge)
             {
-                player.DashState.ResetCanDash();
-                player.DashState.ResetLastDashTime();
                 stateMachine.ChangeState(player.WallGrabState);
             }
             else if (isTouchingWall && xInput == player.FacingDirection && player.CurrentVelocity.y <= 0)
