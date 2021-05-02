@@ -104,6 +104,8 @@ namespace ProjectN.Characters.Nick.States
             {
                 StopWallJumpCoyoteTime();
                 isTouchingWall = player.CheckIfTouchingWall();
+                player.DashState.ResetCanDash();
+                player.DashState.ResetLastDashTime();
                 player.WallJumpState.DetermineWallJumpDirection(isTouchingWall);
                 stateMachine.ChangeState(player.WallJumpState);
             }
@@ -113,6 +115,8 @@ namespace ProjectN.Characters.Nick.States
             }
             else if (isTouchingWall && grabInput && isTouchingLedge)
             {
+                player.DashState.ResetCanDash();
+                player.DashState.ResetLastDashTime();
                 stateMachine.ChangeState(player.WallGrabState);
             }
             else if (isTouchingWall && xInput == player.FacingDirection && player.CurrentVelocity.y <= 0)

@@ -106,7 +106,7 @@ namespace ProjectN.Characters.Nick.States
                     {
                         player.SetVelocityX(dashDirection.x * playerData.dashSlideSpeed);
 
-                        if(Time.time > dashSlideStartTime + playerData.dashSlideTime)
+                        if (Time.time > dashSlideStartTime + playerData.dashSlideTime)
                         {
                             player.Anim.SetBool("dashSlide", false);
                             isAbilityDone = true;
@@ -137,6 +137,7 @@ namespace ProjectN.Characters.Nick.States
         }
 
         public void ResetCanDash() => CanDash = true;
+        public void ResetLastDashTime() => lastDashTime = Time.time - playerData.dashCooldown;
     }
 
 }
