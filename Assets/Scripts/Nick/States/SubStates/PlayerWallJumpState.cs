@@ -17,6 +17,8 @@ namespace ProjectN.Characters.Nick.States
         public override void Enter()
         {
             base.Enter();
+            player.DashState.ResetCanDash();
+            player.DashState.ResetLastDashTime();
             player.InputHandler.UseJumpInput();
             player.JumpState.ResetAmountOfJumpsLeft();
             player.SetVelocity(playerData.wallJumpVelocity, playerData.wallJumpAngle, wallJumpDirection);
