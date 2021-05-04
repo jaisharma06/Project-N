@@ -104,8 +104,6 @@ namespace ProjectN.Characters.Nick.States
             {
                 StopWallJumpCoyoteTime();
                 isTouchingWall = player.CheckIfTouchingWall();
-                player.DashState.ResetCanDash();
-                player.DashState.ResetLastDashTime();
                 player.WallJumpState.DetermineWallJumpDirection(isTouchingWall);
                 stateMachine.ChangeState(player.WallJumpState);
             }
