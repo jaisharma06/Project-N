@@ -8,6 +8,7 @@ namespace ProjectN.Characters.Nick.States
     {
         //Input
         private int xInput;
+        private int yInput;
         private bool jumpInput;
         private bool jumpInputStop;
         private bool grabInput;
@@ -77,6 +78,7 @@ namespace ProjectN.Characters.Nick.States
             CheckWallJumpCoyoteTime();
 
             xInput = player.InputHandler.NormInputX;
+            yInput = player.InputHandler.NormInputY;
             jumpInput = player.InputHandler.JumpInput;
             jumpInputStop = player.InputHandler.JumpInputStop;
             grabInput = player.InputHandler.GrabInput;
@@ -109,7 +111,15 @@ namespace ProjectN.Characters.Nick.States
             }
             else if (jumpInput && player.JumpState.CanJump())
             {
-                stateMachine.ChangeState(player.JumpState);
+                if (yInput < 0 && player.CheckIfOnLedge())
+                {
+                    player.DisableCollider();
+                }
+                else
+                {
+                    if (player.playerCollider.enabled)
+                        stateMachine.ChangeState(player.JumpState);
+                }
             }
             else if (isTouchingWall && grabInput && isTouchingLedge)
             {

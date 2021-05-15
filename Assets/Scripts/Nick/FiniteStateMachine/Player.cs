@@ -210,7 +210,24 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
         public void SetFriction(float friction)
         {
             playerCollider.sharedMaterial.friction = friction;
+            if (playerCollider.enabled)
+            {
+                playerCollider.enabled = false;
+                playerCollider.enabled = true;
+            }
+
+        }
+
+        public void DisableCollider()
+        {
+            if (!playerCollider.enabled)
+                return;
             playerCollider.enabled = false;
+            Invoke("ResetCollider", playerData.ledgeFallColliderTime);
+        }
+
+        private void ResetCollider()
+        {
             playerCollider.enabled = true;
         }
 

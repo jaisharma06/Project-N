@@ -67,7 +67,15 @@ namespace ProjectN.Characters.Nick.States
             }
             else if (JumpInput && player.JumpState.CanJump())
             {
-                stateMachine.ChangeState(player.JumpState);
+                if (yInput < 0 && player.CheckIfOnLedge())
+                {
+                    player.DisableCollider();
+                }
+                else
+                {
+                    if (player.playerCollider.enabled)
+                        stateMachine.ChangeState(player.JumpState);
+                }
             }
             else if (!isGrounded)
             {

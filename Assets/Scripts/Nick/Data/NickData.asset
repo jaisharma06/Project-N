@@ -46,4 +46,4 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  ledgeFallColliderTime: 0.5
+  ledgeFallColliderTime: 0.4
