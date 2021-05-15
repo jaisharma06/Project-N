@@ -37,11 +37,14 @@ namespace ProjectN.Characters.Nick.States
 
             player.JumpState.ResetAmountOfJumpsLeft();
             player.DashState.ResetCanDash();
+
+            player.SetFriction(1f);
         }
 
         public override void Exit()
         {
             base.Exit();
+            player.SetFriction(0f);
         }
 
         public override void LogicUpdate()

@@ -52,6 +52,10 @@ namespace ProjectN.Characters.Nick.Data
         [Header("Check Variables")]
         public float groundCheckRadius = 0.3f;
         public float wallCheckDistance = 0.5f;
+        public LayerMask ledgeLayer;
         public LayerMask groundLayer;
+
+        [Header("Ledge Jump")]
+        public float ledgeFallColliderTime = 0.5f;
     }
 }

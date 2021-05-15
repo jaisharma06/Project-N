@@ -35,6 +35,7 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
         public Rigidbody2D RB { get; private set; }
         //public Transform DashDirectionIndicator { get; private set; }
         public BoxCollider2D MovementCollider { get; private set; }
+        public Collider2D playerCollider { get; private set; }
         public PlayerInventory Inventory { get; private set; }
         #endregion
 
@@ -85,6 +86,7 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
             //DashDirectionIndicator = transform.Find("DashDirectionIndicator");
             MovementCollider = GetComponent<BoxCollider2D>();
             Inventory = GetComponent<PlayerInventory>();
+            playerCollider = GetComponent<Collider2D>();
 
             FacingDirection = 1;
             PrimaryAttackState.SetWeapon(Inventory.weapons[(int)CombatInputs.primary]);
@@ -148,7 +150,13 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
 
         public bool CheckIfGrounded()
         {
-            return Physics2D.OverlapCircle(groundCheck.position, playerData.groundCheckRadius, playerData.groundLayer);
+            var groundLayerMask = playerData.groundLayer | playerData.ledgeLayer;
+            return Physics2D.OverlapCircle(groundCheck.position, playerData.groundCheckRadius, groundLayerMask);
+        }
+
+        public bool CheckIfOnLedge()
+        {
+            return Physics2D.OverlapCircle(groundCheck.position, playerData.groundCheckRadius, playerData.ledgeLayer);
         }
 
         public bool CheckIfTouchingWall()
@@ -197,6 +205,13 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
 
             workspace.Set(wallCheck.position.x + (xDist * FacingDirection), ledgeCheck.position.y - yDist);
             return workspace;
+        }
+
+        public void SetFriction(float friction)
+        {
+            playerCollider.sharedMaterial.friction = friction;
+            playerCollider.enabled = false;
+            playerCollider.enabled = true;
         }
 
         public void AnimationTrigger() => StateMachine.CurrentState.AnimationTrigger();

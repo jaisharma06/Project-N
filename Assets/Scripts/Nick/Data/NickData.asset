@@ -40,6 +40,10 @@ MonoBehaviour:
   standColliderHeight: 1.6
   groundCheckRadius: 0.8
   wallCheckDistance: 1.1
+  ledgeLayer:
+    serializedVersion: 2
+    m_Bits: 512
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  ledgeFallColliderTime: 0.5
