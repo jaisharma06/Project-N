@@ -92,7 +92,7 @@ namespace ProjectN.Characters.Nick.States
 
                     if (Time.time >= startTime + playerData.dashTime)
                     {
-                        player.RB.drag = 0f;
+                        player.RB.drag = 1f;
                         if (!isDashComplete)
                         {
                             isDashComplete = true;

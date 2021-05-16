@@ -1534,17 +1534,17 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 66.26863, y: -41.50171}
-      - {x: 29.824726, y: -38.918846}
-      - {x: 23.387245, y: -38.883793}
-      - {x: -8.046578, y: -38.83036}
+    - - {x: 65.31821, y: -67.1629}
+      - {x: 26.656666, y: -67.43129}
+      - {x: 5.3293686, y: -67.39624}
+      - {x: -31.49015, y: -67.342804}
       - {x: -31.878197, y: -38.48857}
       - {x: -32.062855, y: -19.929152}
       - {x: -33.138107, y: 24.794756}
-      - {x: 85.65678, y: 24.651114}
-      - {x: 85.4326, y: -19.591902}
-      - {x: 79.55788, y: -23.462019}
-      - {x: 78.845825, y: -42.76151}
+      - {x: 158.02637, y: 26.40367}
+      - {x: 158.23318, y: -22.018589}
+      - {x: 157.69717, y: -30.25674}
+      - {x: 157.95581, y: -67.25679}
 --- !u!1 &144370124
 GameObject:
   m_ObjectHideFlags: 0
@@ -27729,6 +27729,14 @@ PrefabInstance:
     - target: {fileID: 7657646830589750995, guid: f436eb635664a714883cedaaf2ac3f01, type: 3}
       propertyPath: m_Material
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7657646830589750995, guid: f436eb635664a714883cedaaf2ac3f01, type: 3}
+      propertyPath: m_LinearDrag
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7657646830589750995, guid: f436eb635664a714883cedaaf2ac3f01, type: 3}
+      propertyPath: m_AngularDrag
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7657646830589750995, guid: f436eb635664a714883cedaaf2ac3f01, type: 3}
       propertyPath: m_GravityScale
