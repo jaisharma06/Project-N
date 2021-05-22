@@ -1,14 +1,13 @@
+﻿using System.Collections;
 using ProjectN.Characters.Nick.Data;
 using ProjectN.Characters.Nick.FiniteStateMachine;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace ProjectN.Characters.Nick.States
 {
-    public class PlayerMoveState : PlayerGroundedState
+    public class PlayerPushingMoveState : PlayerGroundedState
     {
-        public PlayerMoveState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
+        public PlayerPushingMoveState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
         {
         }
 
@@ -35,20 +34,18 @@ namespace ProjectN.Characters.Nick.States
 
             player.SetVelocityX(playerData.movementVelocity * xInput);
 
-            if (!isExitingState)
-            {
-                if (isGrabbingMovable) {
+            if (!isExitingState) {
+
+                if (!isGrabbingMovable) {
                     if (xInput != 0) {
-                        stateMachine.ChangeState(player.PushingMoveState);
+                        stateMachine.ChangeState(player.MoveState);
                     } else {
-                        stateMachine.ChangeState(player.PushingIdleState);
+                        stateMachine.ChangeState(player.IdleState);
                     }
                 }
 
-                if (xInput == 0){
-                    stateMachine.ChangeState(player.IdleState);
-                }else if (yInput == -1){
-                    //stateMachine.ChangeState(player.CrouchMoveState);
+                if (xInput == 0) {
+                    stateMachine.ChangeState(player.PushingIdleState);
                 }
             }
         }

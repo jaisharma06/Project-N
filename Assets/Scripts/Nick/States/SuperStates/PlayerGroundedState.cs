@@ -16,6 +16,7 @@ namespace ProjectN.Characters.Nick.States
         private bool isTouchingWall;
         private bool isTouchingLedge;
         private bool dashInput;
+        protected bool isGrabbingMovable;
 
         public PlayerGroundedState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
         {
@@ -29,6 +30,7 @@ namespace ProjectN.Characters.Nick.States
             isTouchingWall = player.CheckIfTouchingWall();
             isTouchingLedge = player.CheckIfTouchingLedge();
             isTouchingCeiling = player.CheckForCeiling();
+            isGrabbingMovable = player.CheckIfCanGrabMovable();
         }
 
         public override void Enter()

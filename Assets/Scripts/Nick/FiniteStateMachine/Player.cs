@@ -1,3 +1,4 @@
+using Assets.Scripts.Nick.States.SubStates;
 using ProjectN.Characters.Nick.Data;
 using ProjectN.Characters.Nick.Input;
 using ProjectN.Characters.Nick.States;
@@ -24,6 +25,8 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
         public PlayerCrouchIdleState CrouchIdleState { get; private set; }
         public PlayerCrouchMoveState CrouchMoveState { get; private set; }
         public PlayerAttackState PrimaryAttackState { get; private set; }
+        public PlayerPushingMoveState PushingMoveState { get; private set; }
+        public PlayerPushingIdleState PushingIdleState { get; private set; }
 
         [SerializeField]
         private PlayerData playerData;
@@ -53,6 +56,7 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
         #region Other Variables
         public Vector2 CurrentVelocity { get; private set; }
         public int FacingDirection { get; private set; }
+        public Movable GrabbedMovable { get; private set; }
 
         private Vector2 workspace;
         #endregion
@@ -76,6 +80,8 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
             CrouchIdleState = new PlayerCrouchIdleState(this, StateMachine, playerData, "crouchIdle");
             CrouchMoveState = new PlayerCrouchMoveState(this, StateMachine, playerData, "crouchMove");
             PrimaryAttackState = new PlayerAttackState(this, StateMachine, playerData, "attack");
+            PushingIdleState = new PlayerPushingIdleState(this, StateMachine, playerData, "pushingMove");
+            PushingMoveState = new PlayerPushingMoveState(this, StateMachine, playerData, "pushingIdle");
         }
 
         private void Start()
@@ -181,6 +187,17 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
                 Flip();
             }
         }
+
+        public bool CheckIfCanGrabMovable()
+        {
+            if (!InputHandler.GrabInput){
+                return false;
+            }
+            var hit = Physics2D.Raycast(ledgeCheck.position, Vector2.right * FacingDirection, playerData.wallCheckDistance, playerData.movablesLayer);
+            GrabbedMovable = hit.collider?.GetComponent<Movable>();
+            return true;
+        }
+
         #endregion
 
         #region Other Functions

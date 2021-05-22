@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: NickData
   m_EditorClassIdentifier: 
   movementVelocity: 17
-  jumpVelocity: 25
+  defaultDrag: 0
+  jumpVelocity: 27
   amountOfJumps: 1
   wallJumpVelocity: 20
   wallJumpTime: 0.4

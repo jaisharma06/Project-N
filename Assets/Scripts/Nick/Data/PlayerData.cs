@@ -8,6 +8,8 @@ namespace ProjectN.Characters.Nick.Data
         [Header("Move State")]
         public float movementVelocity = 10f;
 
+        public float defaultDrag = 2f;
+
         [Header("Jump State")]
         public float jumpVelocity = 15f;
         public int amountOfJumps = 1;
@@ -57,5 +59,7 @@ namespace ProjectN.Characters.Nick.Data
 
         [Header("Ledge Jump")]
         public float ledgeFallColliderTime = 0.5f;
+
+        [Header("Movables")] public LayerMask movablesLayer;
     }
 }

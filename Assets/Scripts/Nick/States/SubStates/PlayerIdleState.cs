@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using ProjectN.Characters.Nick.Data;
 using ProjectN.Characters.Nick.FiniteStateMachine;
 
@@ -31,12 +32,18 @@ namespace ProjectN.Characters.Nick.States
 
             if (!isExitingState)
             {
-                if (xInput != 0)
-                {
-                    stateMachine.ChangeState(player.MoveState);
+                UnityEngine.Debug.Log(isGrabbingMovable);
+                if (isGrabbingMovable){
+                    if (xInput != 0){
+                        stateMachine.ChangeState(player.PushingMoveState);
+                    }else{
+                        stateMachine.ChangeState(player.PushingIdleState);
+                    }
                 }
-                else if (yInput == -1)
-                {
+
+                if (xInput != 0){ 
+                    stateMachine.ChangeState(player.MoveState);
+                }else if (yInput == -1){
                     //stateMachine.ChangeState(player.CrouchIdleState);
                 }
             }
