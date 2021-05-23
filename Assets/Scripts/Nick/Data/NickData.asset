@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementVelocity: 17
   defaultDrag: 0
-  jumpVelocity: 27
+  jumpVelocity: 25
   amountOfJumps: 1
   wallJumpVelocity: 20
   wallJumpTime: 0.4
@@ -48,3 +48,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   ledgeFallColliderTime: 0.4
+  movablesLayer:
+    serializedVersion: 2
+    m_Bits: 0
