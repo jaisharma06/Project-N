@@ -25,8 +25,12 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
         public PlayerCrouchIdleState CrouchIdleState { get; private set; }
         public PlayerCrouchMoveState CrouchMoveState { get; private set; }
         public PlayerAttackState PrimaryAttackState { get; private set; }
-        public PlayerPushingMoveState PushingMoveState { get; private set; }
-        public PlayerPushingIdleState PushingIdleState { get; private set; }
+        public PlayerPushBlockMoveState PushingMoveState { get; private set; }
+        public PlayerPushBlockIdleState PushingIdleState { get; private set; }
+        public PlayerJumpDownPlatformState JumpDownPlatformState { get; private set; }
+        public PlayerJumpUpPlatformState JumpUpPlatformState { get; private set; }
+        public PlayerLeaveBlockState LeaveBlockState { get; private set; }
+        public PlayerHoldBlockState HoldBlockState { get; private set; }
 
         [SerializeField]
         private PlayerData playerData;
@@ -80,8 +84,12 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
             CrouchIdleState = new PlayerCrouchIdleState(this, StateMachine, playerData, "crouchIdle");
             CrouchMoveState = new PlayerCrouchMoveState(this, StateMachine, playerData, "crouchMove");
             PrimaryAttackState = new PlayerAttackState(this, StateMachine, playerData, "attack");
-            PushingIdleState = new PlayerPushingIdleState(this, StateMachine, playerData, "pushingMove");
-            PushingMoveState = new PlayerPushingMoveState(this, StateMachine, playerData, "pushingIdle");
+            PushingIdleState = new PlayerPushBlockIdleState(this, StateMachine, playerData, "pushingBlock");
+            PushingMoveState = new PlayerPushBlockMoveState(this, StateMachine, playerData, "pushingBlock");
+            JumpDownPlatformState = new PlayerJumpDownPlatformState(this, StateMachine, playerData, "jumpDownPlatform");
+            JumpUpPlatformState = new PlayerJumpUpPlatformState(this, StateMachine, playerData, "jumpUpPlatform");
+            LeaveBlockState = new PlayerLeaveBlockState(this, StateMachine, playerData, "leavingBlock");
+            HoldBlockState = new PlayerHoldBlockState(this, StateMachine, playerData, "pushingBlock");
         }
 
         private void Start()
@@ -182,19 +190,23 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
 
         public void CheckIfShouldFlip(int xInput)
         {
-            if (xInput != 0 && xInput != FacingDirection)
-            {
+            if (xInput != 0 && xInput != FacingDirection) {
                 Flip();
             }
         }
 
         public bool CheckIfCanGrabMovable()
         {
-            if (!InputHandler.GrabInput){
+            if (!InputHandler.GrabInput) {
+                GrabbedMovable?.SetDragged(false);
+                GrabbedMovable = null;
                 return false;
             }
-            var hit = Physics2D.Raycast(ledgeCheck.position, Vector2.right * FacingDirection, playerData.wallCheckDistance, playerData.movablesLayer);
+
+            var hit = Physics2D.Raycast(ceilingCheck.position, Vector2.right * FacingDirection, playerData.blockCheckDistance, playerData.movablesLayer);
+            if (!hit.collider) return false;
             GrabbedMovable = hit.collider?.GetComponent<Movable>();
+            GrabbedMovable?.SetDragged(true);
             return true;
         }
 
@@ -227,8 +239,7 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
         public void SetFriction(float friction)
         {
             playerCollider.sharedMaterial.friction = friction;
-            if (playerCollider.enabled)
-            {
+            if (playerCollider.enabled) {
                 playerCollider.enabled = false;
                 playerCollider.enabled = true;
             }
@@ -240,12 +251,12 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
             if (!playerCollider.enabled)
                 return;
             playerCollider.enabled = false;
-            Invoke("ResetCollider", playerData.ledgeFallColliderTime);
         }
 
-        private void ResetCollider()
+        public void EnableCollider()
         {
-            playerCollider.enabled = true;
+            if (!playerCollider.enabled)
+                playerCollider.enabled = true;
         }
 
         public void AnimationTrigger() => StateMachine.CurrentState.AnimationTrigger();

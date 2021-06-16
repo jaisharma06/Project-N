@@ -61,5 +61,8 @@ namespace ProjectN.Characters.Nick.Data
         public float ledgeFallColliderTime = 0.5f;
 
         [Header("Movables")] public LayerMask movablesLayer;
+        public float pushVelocity = 12f;
+        public float pullVelocity = 8f;
+        public float blockCheckDistance = 4f;
     }
 }

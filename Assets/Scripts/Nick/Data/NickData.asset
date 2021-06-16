@@ -46,8 +46,11 @@ MonoBehaviour:
     m_Bits: 512
   groundLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 1088
   ledgeFallColliderTime: 0.4
   movablesLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
+  pushVelocity: 4
+  pullVelocity: 4
+  blockCheckDistance: 2.5

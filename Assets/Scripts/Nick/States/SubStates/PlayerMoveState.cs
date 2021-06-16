@@ -38,11 +38,7 @@ namespace ProjectN.Characters.Nick.States
             if (!isExitingState)
             {
                 if (isGrabbingMovable) {
-                    if (xInput != 0) {
-                        stateMachine.ChangeState(player.PushingMoveState);
-                    } else {
-                        stateMachine.ChangeState(player.PushingIdleState);
-                    }
+                    stateMachine.ChangeState(player.HoldBlockState);
                 }
 
                 if (xInput == 0){
