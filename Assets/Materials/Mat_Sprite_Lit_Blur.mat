@@ -51,7 +51,7 @@ Material:
     - _EnableExternalAlpha: 0
     - _HorizontalStep: 0
     - _MaxFocusDistance: 50
-    - _MinFocusDistance: 5
+    - _MinFocusDistance: 45
     - _Radius: 3
     - _Resolution: 800
     - _VerticalStep: 0
