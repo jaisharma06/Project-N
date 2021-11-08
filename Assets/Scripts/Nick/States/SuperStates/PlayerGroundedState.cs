@@ -76,7 +76,7 @@ namespace ProjectN.Characters.Nick.States
                 stateMachine.ChangeState(player.InAirState);
             } else if (isTouchingWall && grabInput && isTouchingLedge) {
                 stateMachine.ChangeState(player.WallGrabState);
-            } else if (dashInput && player.DashState.CheckIfCanDash() && !isTouchingCeiling) {
+            } else if (dashInput && player.DashState.CheckIfCanDash() && !isTouchingCeiling && !player.isGrabbingMovable) {
                 stateMachine.ChangeState(player.DashState);
             }
         }

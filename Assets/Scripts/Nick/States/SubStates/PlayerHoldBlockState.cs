@@ -12,6 +12,7 @@ public class PlayerHoldBlockState : PlayerGroundedState
     public override void Enter()
     {
         base.Enter();
+        player.isGrabbingMovable = true;
         player.transform.position = player.GrabbedMovable.GetPlayerPosition(player.transform.position);
     }
 

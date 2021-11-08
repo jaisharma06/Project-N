@@ -18,6 +18,11 @@ namespace ProjectN.Characters.Nick.Data
         public float wallJumpVelocity = 20;
         public float wallJumpTime = 0.4f;
         public Vector2 wallJumpAngle = new Vector2(1, 2);
+        public float maxHorizontalJumpDistance = 1f;
+        public float maxWallHeightDistance = 1f;
+        public float smallWallJumpDistance = 1f;
+        public float mediumWallJumpDistance = 2f;
+        public float playerFeetThreshold = 1f;
 
         [Header("In Air State")]
         public float coyoteTime = 0.2f;
@@ -64,5 +69,8 @@ namespace ProjectN.Characters.Nick.Data
         public float pushVelocity = 12f;
         public float pullVelocity = 8f;
         public float blockCheckDistance = 4f;
+
+        [Header("Health")]
+        public float maxHealth = 100f;
     }
 }

@@ -7,7 +7,16 @@ using UnityEngine;
 
 namespace ProjectN.Characters.Nick.FiniteStateMachine
 {
-    public class Player : MonoBehaviour
+    public enum PlayerJumpType
+    {
+        NONE = 0,
+        SMALL = 1,
+        MEDIUM = 2,
+        LARGE = 3,
+        LEDGE = 4
+    }
+
+    public class Player : MonoBehaviour, IHealth
     {
         #region State Variables
         public PlayerStateMachine StateMachine { get; private set; }
@@ -55,6 +64,8 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
         private Transform ledgeCheck;
         [SerializeField]
         private Transform ceilingCheck;
+        [SerializeField]
+        private Transform wallHeightCheck;
         #endregion
 
         #region Other Variables
@@ -63,6 +74,14 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
         public Movable GrabbedMovable { get; private set; }
 
         private Vector2 workspace;
+
+        public float health { get; private set; }
+        public float maxHealth { get; set; }
+        public bool isDead { get; set; }
+        public bool isGrabbingMovable { get; set; }
+
+        public float feetPosition { get { return playerCollider.bounds.min.y; } }
+        public PlayerJumpType jumpType;
         #endregion
 
         #region Unity Callback Functions
@@ -104,6 +123,10 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
 
             FacingDirection = 1;
             PrimaryAttackState.SetWeapon(Inventory.weapons[(int)CombatInputs.primary]);
+
+            maxHealth = playerData.maxHealth;
+            health = maxHealth;
+
             StateMachine.Initialize(IdleState);
         }
 
@@ -190,14 +213,16 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
 
         public void CheckIfShouldFlip(int xInput)
         {
-            if (xInput != 0 && xInput != FacingDirection) {
+            if (xInput != 0 && xInput != FacingDirection)
+            {
                 Flip();
             }
         }
 
         public bool CheckIfCanGrabMovable()
         {
-            if (!InputHandler.GrabInput) {
+            if (!InputHandler.GrabInput)
+            {
                 GrabbedMovable?.SetDragged(false);
                 GrabbedMovable = null;
                 return false;
@@ -208,6 +233,69 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
             GrabbedMovable = hit.collider?.GetComponent<Movable>();
             GrabbedMovable?.SetDragged(true);
             return true;
+        }
+
+        private float CheckWallHeight()
+        {
+            Vector2 checkStartPosition = wallHeightCheck.position;
+            int totalRaycasts = 10;
+            var deltaDistance = playerData.maxHorizontalJumpDistance / totalRaycasts;
+            bool isPitBetween = false;
+            for(int i = 1; i <= totalRaycasts; i++){
+                var raycastStartPosition = checkStartPosition;
+                raycastStartPosition.x += (FacingDirection * i * deltaDistance);
+                var hit = Physics2D.Raycast(raycastStartPosition, Vector2.down, playerData.maxWallHeightDistance, playerData.groundLayer);
+                if(hit.collider){
+                    Debug.DrawLine(raycastStartPosition, hit.point, Color.green, 2f);
+                    if(isPitBetween){
+                        return (feetPosition - hit.point.y);
+                    }
+                }else{
+                    isPitBetween = true;
+                    Debug.DrawLine(raycastStartPosition, raycastStartPosition + Vector2.down * playerData.maxWallHeightDistance, Color.red, 2f);
+                }
+            }
+            return 0;
+        }
+
+        private GameObject GetWallBelowPlayer()
+        {
+            var hit = Physics2D.Raycast(transform.position, Vector2.down, 5f, playerData.groundLayer);
+            if (hit.collider)
+            {
+                return hit.collider.gameObject;
+            }
+
+            return null;
+        }
+
+        public PlayerJumpType GetJumpType()
+        {
+            float jumpHeight = CheckWallHeight();
+
+            Debug.Log("Jump height: " + jumpHeight);
+
+            if (jumpHeight == 0)
+            {
+                jumpType = PlayerJumpType.NONE;
+            }
+            else if(jumpHeight < 0){
+                jumpType = PlayerJumpType.LEDGE;
+            }
+            else if (jumpHeight <= playerData.smallWallJumpDistance)
+            {
+                jumpType = PlayerJumpType.SMALL;
+            }
+            else if (jumpHeight <= playerData.smallWallJumpDistance)
+            {
+                jumpType = PlayerJumpType.MEDIUM;
+            }
+            else
+            {
+                jumpType = PlayerJumpType.LARGE;
+            }
+
+            return jumpType;
         }
 
         #endregion
@@ -239,7 +327,8 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
         public void SetFriction(float friction)
         {
             playerCollider.sharedMaterial.friction = friction;
-            if (playerCollider.enabled) {
+            if (playerCollider.enabled)
+            {
                 playerCollider.enabled = false;
                 playerCollider.enabled = true;
             }
@@ -274,6 +363,31 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
             Gizmos.DrawWireSphere(groundCheck.position, playerData.groundCheckRadius);
 
             Gizmos.DrawLine(wallCheck.position, new Vector3(wallCheck.position.x + playerData.wallCheckDistance, wallCheck.position.y, wallCheck.position.z));
+        }
+
+        public void TakeDamage(float damage)
+        {
+            if (isDead)
+            {
+                return;
+            }
+
+            health -= damage;
+            if (health <= 0)
+            {
+                health = 0;
+                Die();
+            }
+        }
+
+        public void Die()
+        {
+
+        }
+
+        public void Dispose()
+        {
+
         }
         #endregion
     }

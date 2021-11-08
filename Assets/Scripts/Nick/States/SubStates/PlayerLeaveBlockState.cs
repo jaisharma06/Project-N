@@ -26,6 +26,13 @@ public class PlayerLeaveBlockState : PlayerGroundedState
         isAnimationComplete = true;
     }
 
+    public override void Exit()
+    {
+        base.Exit();
+
+        player.isGrabbingMovable = false;
+    }
+
     public override void LogicUpdate()
     {
         base.LogicUpdate();

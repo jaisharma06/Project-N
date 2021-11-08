@@ -20,7 +20,9 @@ namespace ProjectN.Characters.Nick.States
         public override void Enter()
         {
             base.Enter();
-            player.transform.position = player.GrabbedMovable.GetPlayerPosition(player.transform.position);
+            if(player.GrabbedMovable != null) {
+                player.transform.position = player.GrabbedMovable.GetPlayerPosition(player.transform.position);
+            }
         }
 
         public override void Exit()

@@ -21,7 +21,9 @@ namespace Assets.Scripts.Nick.States.SubStates
         {
             base.Enter();
             player.SetVelocityX(0f);
-            player.transform.position = player.GrabbedMovable.GetPlayerPosition(player.transform.position);
+            if (player.GrabbedMovable != null) {
+                player.transform.position = player.GrabbedMovable.GetPlayerPosition(player.transform.position);
+            }
         }
 
         public override void Exit()

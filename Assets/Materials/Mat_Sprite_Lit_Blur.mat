@@ -50,6 +50,7 @@ Material:
     m_Floats:
     - _EnableExternalAlpha: 0
     - _HorizontalStep: 0
+    - _MaxBlurFactor: 50
     - _MaxFocusDistance: 50
     - _MinFocusDistance: 45
     - _Radius: 3
