@@ -1,3 +1,4 @@
+using System;
 using Assets.Scripts.Nick.States.SubStates;
 using ProjectN.Characters.Nick.Data;
 using ProjectN.Characters.Nick.Input;
@@ -43,6 +44,7 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
 
         [SerializeField]
         private PlayerData playerData;
+        public AnimationCurve jumpCurve;
         #endregion
 
         #region Components
@@ -81,7 +83,13 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
         public bool isGrabbingMovable { get; set; }
 
         public float feetPosition { get { return playerCollider.bounds.min.y; } }
+        public float jumpDuration
+        {
+            get => playerData.playerJumpDuration;
+        }
         public PlayerJumpType jumpType;
+        [NonSerialized]
+        public Vector2 jumpEndPosition;
         #endregion
 
         #region Unity Callback Functions
@@ -247,11 +255,17 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
                 var hit = Physics2D.Raycast(raycastStartPosition, Vector2.down, playerData.maxWallHeightDistance, playerData.groundLayer);
                 if(hit.collider){
                     Debug.DrawLine(raycastStartPosition, hit.point, Color.green, 2f);
-                    if(isPitBetween){
+                    if(isPitBetween)
+                    {
+                        var playerHalfHeight = transform.position.y - feetPosition;
+                        jumpEndPosition = hit.point;
+                        //jumpEndPosition.y += playerHalfHeight;
+                        Debug.Log("---------PIT BETWEEN--------");
                         return (feetPosition - hit.point.y);
                     }
                 }else{
                     isPitBetween = true;
+                    Debug.Log("---------PIT AHEAD FOUND--------");
                     Debug.DrawLine(raycastStartPosition, raycastStartPosition + Vector2.down * playerData.maxWallHeightDistance, Color.red, 2f);
                 }
             }
@@ -275,7 +289,7 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
 
             Debug.Log("Jump height: " + jumpHeight);
 
-            if (jumpHeight == 0)
+            if (jumpHeight == 0 || Mathf.Abs(CurrentVelocity.x) < 0.1f)
             {
                 jumpType = PlayerJumpType.NONE;
             }

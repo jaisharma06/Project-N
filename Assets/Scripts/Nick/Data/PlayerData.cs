@@ -23,6 +23,7 @@ namespace ProjectN.Characters.Nick.Data
         public float smallWallJumpDistance = 1f;
         public float mediumWallJumpDistance = 2f;
         public float playerFeetThreshold = 1f;
+        public float playerJumpDuration = 0.8f;
 
         [Header("In Air State")]
         public float coyoteTime = 0.2f;

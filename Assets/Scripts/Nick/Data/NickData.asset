@@ -21,9 +21,10 @@ MonoBehaviour:
   wallJumpAngle: {x: 1, y: 2}
   maxHorizontalJumpDistance: 15
   maxWallHeightDistance: 30
-  smallWallJumpDistance: 10
+  smallWallJumpDistance: 15
   mediumWallJumpDistance: 20
   playerFeetThreshold: 1
+  playerJumpDuration: 0.9
   coyoteTime: 0.2
   variableJumpHeightMultiplier: 0.5
   wallSlideVelocity: 3

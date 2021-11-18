@@ -1,3 +1,4 @@
+using System;
 using ProjectN.Characters.Nick.Data;
 using ProjectN.Characters.Nick.FiniteStateMachine;
 using UnityEngine;
@@ -28,7 +29,8 @@ namespace ProjectN.Characters.Nick.States
 
         private float startWallJumpCoyoteTime;
 
-        public PlayerInAirState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
+        public PlayerInAirState(Player player, PlayerStateMachine stateMachine, PlayerData playerData,
+            string animBoolName) : base(player, stateMachine, playerData, animBoolName)
         {
         }
 
@@ -44,11 +46,14 @@ namespace ProjectN.Characters.Nick.States
             isTouchingWallBack = player.CheckIfTouchingWallBack();
             isTouchingLedge = player.CheckIfTouchingLedge();
 
-            if (isTouchingWall && !isTouchingLedge) {
+            if (isTouchingWall && !isTouchingLedge)
+            {
                 player.LedgeClimbState.SetDetectedPosition(player.transform.position);
             }
 
-            if (!wallJumpCoyoteTime && !isTouchingWall && !isTouchingWallBack && (oldIsTouchingWall || oldIsTouchingWallBack)) {
+            if (!wallJumpCoyoteTime && !isTouchingWall && !isTouchingWallBack &&
+                (oldIsTouchingWall || oldIsTouchingWallBack))
+            {
                 StartWallJumpCoyoteTime();
             }
         }
@@ -82,56 +87,87 @@ namespace ProjectN.Characters.Nick.States
             grabInput = player.InputHandler.GrabInput;
             dashInput = player.InputHandler.DashInput;
 
-            CheckJumpMultiplier();
-
-            if (player.InputHandler.AttackInputs[(int)CombatInputs.primary]) {
+            if (player.jumpType == PlayerJumpType.NONE || player.jumpType == PlayerJumpType.LEDGE)
+            {
+                CheckJumpMultiplier();
+            }
+            
+            if (player.InputHandler.AttackInputs[(int) CombatInputs.primary])
+            {
                 stateMachine.ChangeState(player.PrimaryAttackState);
-            } else if (player.InputHandler.AttackInputs[(int)CombatInputs.secondary]) {
+            }
+            else if (player.InputHandler.AttackInputs[(int) CombatInputs.secondary])
+            {
                 //stateMachine.ChangeState(player.SecondaryAttackState);
-            } else if (isGrounded && player.CurrentVelocity.y < 0.01f) {
+            }
+            else if (isGrounded && player.CurrentVelocity.y < 0.01f)
+            {
                 stateMachine.ChangeState(player.LandState);
-            } else if (isTouchingWall && !isTouchingLedge && !isGrounded) {
+            }
+            else if (isTouchingWall && !isTouchingLedge && !isGrounded)
+            {
                 stateMachine.ChangeState(player.LedgeClimbState);
-            } else if (jumpInput && (isTouchingWall || isTouchingWallBack || wallJumpCoyoteTime)) {
+            }
+            else if (jumpInput && (isTouchingWall || isTouchingWallBack || wallJumpCoyoteTime))
+            {
                 StopWallJumpCoyoteTime();
                 isTouchingWall = player.CheckIfTouchingWall();
                 player.WallJumpState.DetermineWallJumpDirection(isTouchingWall);
                 stateMachine.ChangeState(player.WallJumpState);
-            } else if (jumpInput && player.JumpState.CanJump()) {
-                if (yInput < 0 && player.CheckIfOnLedge()) {
+            }
+            else if (jumpInput && player.JumpState.CanJump())
+            {
+                if (yInput < 0 && player.CheckIfOnLedge())
+                {
                     player.DisableCollider();
-                } else {
+                }
+                else
+                {
                     if (player.playerCollider.enabled)
                         stateMachine.ChangeState(player.JumpState);
                 }
-            } else if (isTouchingWall && grabInput && isTouchingLedge) {
+            }
+            else if (isTouchingWall && grabInput && isTouchingLedge)
+            {
                 stateMachine.ChangeState(player.WallGrabState);
-            } else if (isTouchingWall && xInput == player.FacingDirection && player.CurrentVelocity.y <= 0) {
+            }
+            else if (isTouchingWall && xInput == player.FacingDirection && player.CurrentVelocity.y <= 0)
+            {
                 stateMachine.ChangeState(player.WallSlideState);
-            } else if (dashInput && player.DashState.CheckIfCanDash() && !player.isGrabbingMovable) {
+            }
+            else if (dashInput && player.DashState.CheckIfCanDash() && !player.isGrabbingMovable)
+            {
                 stateMachine.ChangeState(player.DashState);
-            } else {
+            }
+            else
+            {
                 player.CheckIfShouldFlip(xInput);
-                if(player.jumpType == PlayerJumpType.NONE) {
+                if (player.jumpType == PlayerJumpType.NONE || player.jumpType == PlayerJumpType.LEDGE)
+                {
                     player.SetVelocityX(playerData.movementVelocity * xInput);
+                    
                 }
-
+                else
+                {
+                    //JumpToPosition(startPosition, endPosition, 0.9f);
+                }
                 player.Anim.SetFloat("yVelocity", player.CurrentVelocity.y);
                 player.Anim.SetFloat("xVelocity", Mathf.Abs(player.CurrentVelocity.x));
             }
-
         }
 
         private void CheckJumpMultiplier()
         {
-            if (isJumping) {
-                if (player.jumpType == PlayerJumpType.NONE) {
-                    if (jumpInputStop) {
-                        player.SetVelocityY(player.CurrentVelocity.y * playerData.variableJumpHeightMultiplier);
-                        isJumping = false;
-                    } else if (player.CurrentVelocity.y <= 0f) {
-                        isJumping = false;
-                    }
+            if (isJumping)
+            {
+                if (jumpInputStop)
+                {
+                    player.SetVelocityY(player.CurrentVelocity.y * playerData.variableJumpHeightMultiplier);
+                    isJumping = false;
+                }
+                else if (player.CurrentVelocity.y <= 0f)
+                {
+                    isJumping = false;
                 }
             }
         }
@@ -143,7 +179,8 @@ namespace ProjectN.Characters.Nick.States
 
         private void CheckCoyoteTime()
         {
-            if (coyoteTime && Time.time > startTime + playerData.coyoteTime) {
+            if (coyoteTime && Time.time > startTime + playerData.coyoteTime)
+            {
                 coyoteTime = false;
                 player.JumpState.DecreaseAmountOfJumpsLeft();
             }
@@ -151,7 +188,8 @@ namespace ProjectN.Characters.Nick.States
 
         private void CheckWallJumpCoyoteTime()
         {
-            if (wallJumpCoyoteTime && Time.time > startWallJumpCoyoteTime + playerData.coyoteTime) {
+            if (wallJumpCoyoteTime && Time.time > startWallJumpCoyoteTime + playerData.coyoteTime)
+            {
                 wallJumpCoyoteTime = false;
             }
         }
