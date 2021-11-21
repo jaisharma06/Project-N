@@ -246,15 +246,112 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
         private float CheckWallHeight()
         {
             Vector2 checkStartPosition = wallHeightCheck.position;
+            
+            // code added by Mrinal
+            // distance below nick's feet which will be considered as a pit
+            float pitConsiderDistance = 1.00F; 
+            // getting distance from raycast origin and Nick's feet (groundcheck is roughly 0.5 unit above feet so adding that as well)
+            float NickFeetToHeaddistance = Vector2.Distance( groundCheck.position, wallHeightCheck.position) + 0.5F;
+            
             int totalRaycasts = 10;
             var deltaDistance = playerData.maxHorizontalJumpDistance / totalRaycasts;
             bool isPitBetween = false;
-            for(int i = 1; i <= totalRaycasts; i++){
+
+            bool landingPlatformFound = false; // if no landing platfomr is found, its a long jump
+            bool isJumpSmall = false; // to see if the jump should be small
+            /* perform following checks -
+             * 1. is there any platform above Nick's feet height? if yes, stop checking beyond and make is misc jump
+             * 2. is there any gap? if yes this is a gap jump
+             * 3. is there any platform at nick's feet level? then its a short jump
+             * 4. is there any platform hitting raycast distance beyond Nick's feet level? then its a medium jump
+             */
+            
+            // trying some test code, hence commenting old code
+            for (int i=0; i < totalRaycasts; i++)
+            {
+                var raycastStartPosition = checkStartPosition;
+                raycastStartPosition.x += (FacingDirection * i * deltaDistance);
+                var hit = Physics2D.Raycast(raycastStartPosition, Vector2.down, playerData.maxWallHeightDistance, playerData.groundLayer);
+                
+                if(hit.collider)
+                {
+                    if(hit.distance < (NickFeetToHeaddistance - 0.5f))
+                    {
+                        // 1. if raycast hits anypoint above nicks's feet position, its a misc jump
+                        isPitBetween = false; // should have a workaround for this @jai, its actually a head hit, or ledge hang
+                        Debug.Log("Ledge Hang");
+                        Debug.DrawLine(raycastStartPosition, hit.point, Color.red, 2f);
+                        break; // stop checking, its over, its a misc jump
+                    }
+                    if(hit.distance > (NickFeetToHeaddistance + pitConsiderDistance) )
+                    {
+                        // 2. raycast found gap deeper then Nick's feet position, its a pit
+                        isPitBetween = true;
+                    }
+                    // say if pit is found in any loop, checking for subsiquent iterations to find landing platform level
+                    if(isPitBetween)
+                    {
+                        Debug.DrawLine(raycastStartPosition, hit.point, Color.green, 2f);
+                        landingPlatformFound = true;
+
+                        if(hit.distance <= (NickFeetToHeaddistance + pitConsiderDistance))
+                        {
+                            // logic for small jump
+                            isJumpSmall = true;
+                        }
+                    }
+                }
+                else
+                {
+                    // nocollider was found hence there is a pit
+                    Debug.DrawLine(raycastStartPosition, raycastStartPosition + Vector2.down * playerData.maxWallHeightDistance, Color.blue, 2f);
+                    isPitBetween = true;
+                }
+            }
+            
+            Debug.Log("Pit exist :"+isPitBetween+", landing platform found : "+landingPlatformFound+", is jump small: "+isJumpSmall);
+
+            if(!isPitBetween){
+                Debug.Log("no-pit jump");
+                return 0;
+            }
+            else {
+                if(!landingPlatformFound)
+                {
+                    Debug.Log("Long Jump");
+                    // its a long jump
+                    return (playerData.maxWallHeightDistance + 1);
+                    // return playerData.smallWallJumpDistance; // setting jump medium for now
+                }
+                else if(!isJumpSmall)
+                {
+                    Debug.Log("Medium jump");
+                    // its a medium jump
+                    return playerData.maxWallHeightDistance;
+                    // return playerData.smallWallJumpDistance; // setting jump to medium for now
+                }
+                else
+                {
+                    Debug.Log("Small jump");
+                    return playerData.smallWallJumpDistance;
+                }
+            }
+
+
+            /* for(int i = 1; i <= totalRaycasts; i++){
                 var raycastStartPosition = checkStartPosition;
                 raycastStartPosition.x += (FacingDirection * i * deltaDistance);
                 var hit = Physics2D.Raycast(raycastStartPosition, Vector2.down, playerData.maxWallHeightDistance, playerData.groundLayer);
                 if(hit.collider){
-                    Debug.DrawLine(raycastStartPosition, hit.point, Color.green, 2f);
+                    if(hit.distance > pitConsiderDistance)
+                    {
+                        isPitBetween = true;
+                        Debug.Log("---------GAP to be considered PIT AHEAD FOUND--------");
+                        Debug.DrawLine(raycastStartPosition, raycastStartPosition + Vector2.down * playerData.maxWallHeightDistance, Color.red, 2f);
+                    }
+                    else 
+                        Debug.DrawLine(raycastStartPosition, hit.point, Color.green, 2f);
+                    
                     if(isPitBetween)
                     {
                         var playerHalfHeight = transform.position.y - feetPosition;
@@ -268,7 +365,7 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
                     Debug.Log("---------PIT AHEAD FOUND--------");
                     Debug.DrawLine(raycastStartPosition, raycastStartPosition + Vector2.down * playerData.maxWallHeightDistance, Color.red, 2f);
                 }
-            }
+            } */
             return 0;
         }
 
@@ -296,11 +393,11 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
             else if(jumpHeight < 0){
                 jumpType = PlayerJumpType.LEDGE;
             }
-            else if (jumpHeight <= playerData.smallWallJumpDistance)
+            else if (jumpHeight <= playerData.smallWallJumpDistance) // should be player feet level plus some vertical offset
             {
                 jumpType = PlayerJumpType.SMALL;
             }
-            else if (jumpHeight <= playerData.smallWallJumpDistance)
+            else if (jumpHeight <= playerData.maxWallHeightDistance) // fix this @jai
             {
                 jumpType = PlayerJumpType.MEDIUM;
             }
