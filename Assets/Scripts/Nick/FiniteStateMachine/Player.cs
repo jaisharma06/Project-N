@@ -257,6 +257,9 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
             var deltaDistance = playerData.maxHorizontalJumpDistance / totalRaycasts;
             bool isPitBetween = false;
 
+
+            jumpEndPosition.y += transform.position.y ; // temporary workaround to make him jump
+
             bool landingPlatformFound = false; // if no landing platfomr is found, its a long jump
             bool isJumpSmall = false; // to see if the jump should be small
             /* perform following checks -
@@ -272,10 +275,10 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
                 var raycastStartPosition = checkStartPosition;
                 raycastStartPosition.x += (FacingDirection * i * deltaDistance);
                 var hit = Physics2D.Raycast(raycastStartPosition, Vector2.down, playerData.maxWallHeightDistance, playerData.groundLayer);
-                
-                if(hit.collider)
+
+                if (hit.collider)
                 {
-                    if(hit.distance < (NickFeetToHeaddistance - 0.5f))
+                    if (hit.distance < (NickFeetToHeaddistance - 0.5f))
                     {
                         // 1. if raycast hits anypoint above nicks's feet position, its a misc jump
                         isPitBetween = false; // should have a workaround for this @jai, its actually a head hit, or ledge hang
