@@ -262,13 +262,13 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
 
             bool landingPlatformFound = false; // if no landing platfomr is found, its a long jump
             bool isJumpSmall = false; // to see if the jump should be small
-            /* perform following checks -
-             * 1. is there any platform above Nick's feet height? if yes, stop checking beyond and make is misc jump
-             * 2. is there any gap? if yes this is a gap jump
-             * 3. is there any platform at nick's feet level? then its a short jump
-             * 4. is there any platform hitting raycast distance beyond Nick's feet level? then its a medium jump
-             */
-            
+           
+             /* perform following checks -
+                         * 1. is there any platform above Nick's feet height? if yes, stop checking beyond and make is misc jump
+                         * 2. is there any gap? if yes this is a gap jump
+                         * 3. is there any platform at nick's feet level? then its a short jump
+                         * 4. is there any platform hitting raycast distance beyond Nick's feet level? then its a medium jump
+                         */
             // trying some test code, hence commenting old code
             for (int i=0; i < totalRaycasts; i++)
             {

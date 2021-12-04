@@ -2,17 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b958847e-fb28-4d2f-a7b6-4c53ddf2b495" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Project-N/.idea/contentModel.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Project-N/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Project-N/.idea/indexLayout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Project-N/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Project-N/.idea/riderModule.iml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Project-N/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Project-N/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Level_1.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Level_1.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Nick/Data/NickData.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Nick/Data/NickData.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Nick/Data/PlayerData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Nick/Data/PlayerData.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Nick/FiniteStateMachine/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Nick/FiniteStateMachine/Player.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Nick/States/SubStates/PlayerInAirState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Nick/States/SubStates/PlayerInAirState.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Nick/States/SubStates/PlayerJumpState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Nick/States/SubStates/PlayerJumpState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Nick/States/SubStates/PlayerLandState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Nick/States/SubStates/PlayerLandState.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,6 +113,8 @@
       <workItem from="1636888878354" duration="1156000" />
       <workItem from="1636893651788" duration="3455000" />
       <workItem from="1636905232706" duration="1178000" />
+      <workItem from="1638023563732" duration="1508000" />
+      <workItem from="1638372776319" duration="3480000" />
     </task>
     <servers />
   </component>

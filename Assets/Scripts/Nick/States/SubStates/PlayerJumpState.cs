@@ -29,19 +29,27 @@ namespace ProjectN.Characters.Nick.States
 
             player.Anim.SetInteger("jumpType", ((int)playerJumpType));
 
+            if (player.jumpType != PlayerJumpType.NONE)
+            {
+                var animationType = Random.Range(0, 2);
+                player.Anim.SetInteger("smallJumpType", animationType);
+            }
+
             switch (playerJumpType)
             {
                 case PlayerJumpType.NONE:
                     break;
                 case PlayerJumpType.SMALL:
-                    var animationType = Random.Range(0, 2);
-                    player.Anim.SetInteger("smallJumpType", animationType);
+                    
                     break;
                 case PlayerJumpType.MEDIUM:
+                    player.LandState.landingAnimationName = "MediumLanding";
                     break;
                 case PlayerJumpType.LARGE:
+                    player.LandState.landingAnimationName = "LargeLanding";
                     break;
                 case PlayerJumpType.LEDGE:
+                    player.LandState.landingAnimationName = "";
                     break;
             }
             
