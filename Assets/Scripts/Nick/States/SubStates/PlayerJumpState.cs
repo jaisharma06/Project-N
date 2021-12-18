@@ -63,8 +63,8 @@ namespace ProjectN.Characters.Nick.States
                     startPosition = player.transform.position;
                     endPosition = player.jumpEndPosition;
                     Vector3 velocity =  GetJumpVelocity(startPosition, endPosition, 4f);
-                    player.SetVelocityY(velocity.y * 2.0f);
-                    player.SetVelocityX(velocity.x / 3.0f);
+                    player.SetVelocityX(velocity.x / 20.0f);
+                    player.SetVelocityY(velocity.y * 2.5f);
                     Debug.Log("Velocity: " + velocity.magnitude + "Player Velocity: " + player.RB.velocity.magnitude);
             }
             

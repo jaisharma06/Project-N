@@ -35,7 +35,6 @@ namespace ProjectN.Characters.Nick.States
             Time.timeScale = playerData.holdTimeScale;
             startTime = Time.unscaledTime;
             isDashComplete = false;
-
             //player.DashDirectionIndicator.gameObject.SetActive(true);
 
         }

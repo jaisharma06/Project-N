@@ -20,6 +20,7 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
     public class Player : MonoBehaviour, IHealth
     {
         #region State Variables
+
         public PlayerStateMachine StateMachine { get; private set; }
         public PlayerIdleState IdleState { get; private set; }
         public PlayerMoveState MoveState { get; private set; }
@@ -42,35 +43,37 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
         public PlayerLeaveBlockState LeaveBlockState { get; private set; }
         public PlayerHoldBlockState HoldBlockState { get; private set; }
 
-        [SerializeField]
-        private PlayerData playerData;
+        [SerializeField] private PlayerData playerData;
         public AnimationCurve jumpCurve;
+
         #endregion
 
         #region Components
+
         public Animator Anim { get; private set; }
         public PlayerInputHandler InputHandler { get; private set; }
+
         public Rigidbody2D RB { get; private set; }
+
         //public Transform DashDirectionIndicator { get; private set; }
         public BoxCollider2D MovementCollider { get; private set; }
         public Collider2D playerCollider { get; private set; }
         public PlayerInventory Inventory { get; private set; }
+
         #endregion
 
         #region Check Transforms
-        [SerializeField]
-        private Transform groundCheck;
-        [SerializeField]
-        private Transform wallCheck;
-        [SerializeField]
-        private Transform ledgeCheck;
-        [SerializeField]
-        private Transform ceilingCheck;
-        [SerializeField]
-        private Transform wallHeightCheck;
+
+        [SerializeField] private Transform groundCheck;
+        [SerializeField] private Transform wallCheck;
+        [SerializeField] private Transform ledgeCheck;
+        [SerializeField] private Transform ceilingCheck;
+        [SerializeField] private Transform wallHeightCheck;
+
         #endregion
 
         #region Other Variables
+
         public Vector2 CurrentVelocity { get; private set; }
         public int FacingDirection { get; private set; }
         public Movable GrabbedMovable { get; private set; }
@@ -82,17 +85,23 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
         public bool isDead { get; set; }
         public bool isGrabbingMovable { get; set; }
 
-        public float feetPosition { get { return playerCollider.bounds.min.y; } }
+        public float feetPosition
+        {
+            get { return playerCollider.bounds.min.y; }
+        }
+
         public float jumpDuration
         {
             get => playerData.playerJumpDuration;
         }
+
         public PlayerJumpType jumpType;
-        [NonSerialized]
-        public Vector2 jumpEndPosition;
+        [NonSerialized] public Vector2 jumpEndPosition;
+
         #endregion
 
         #region Unity Callback Functions
+
         private void Awake()
         {
             StateMachine = new PlayerStateMachine();
@@ -130,7 +139,7 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
             playerCollider = GetComponent<Collider2D>();
 
             FacingDirection = 1;
-            PrimaryAttackState.SetWeapon(Inventory.weapons[(int)CombatInputs.primary]);
+            PrimaryAttackState.SetWeapon(Inventory.weapons[(int) CombatInputs.primary]);
 
             maxHealth = playerData.maxHealth;
             health = maxHealth;
@@ -148,9 +157,11 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
         {
             StateMachine.CurrentState.PhysicsUpdate();
         }
+
         #endregion
 
         #region Set Functions
+
         public void SetVelocityZero()
         {
             RB.velocity = Vector2.zero;
@@ -185,9 +196,11 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
             RB.velocity = workspace;
             CurrentVelocity = workspace;
         }
+
         #endregion
 
         #region Check Functions
+
         public bool CheckForCeiling()
         {
             return Physics2D.OverlapCircle(ceilingCheck.position, playerData.groundCheckRadius, playerData.groundLayer);
@@ -206,17 +219,20 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
 
         public bool CheckIfTouchingWall()
         {
-            return Physics2D.Raycast(wallCheck.position, Vector2.right * FacingDirection, playerData.wallCheckDistance, playerData.groundLayer);
+            return Physics2D.Raycast(wallCheck.position, Vector2.right * FacingDirection, playerData.wallCheckDistance,
+                playerData.groundLayer);
         }
 
         public bool CheckIfTouchingLedge()
         {
-            return Physics2D.Raycast(ledgeCheck.position, Vector2.right * FacingDirection, playerData.wallCheckDistance, playerData.groundLayer);
+            return Physics2D.Raycast(ledgeCheck.position, Vector2.right * FacingDirection, playerData.wallCheckDistance,
+                playerData.groundLayer);
         }
 
         public bool CheckIfTouchingWallBack()
         {
-            return Physics2D.Raycast(wallCheck.position, Vector2.right * -FacingDirection, playerData.wallCheckDistance, playerData.groundLayer);
+            return Physics2D.Raycast(wallCheck.position, Vector2.right * -FacingDirection, playerData.wallCheckDistance,
+                playerData.groundLayer);
         }
 
         public void CheckIfShouldFlip(int xInput)
@@ -236,7 +252,8 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
                 return false;
             }
 
-            var hit = Physics2D.Raycast(ceilingCheck.position, Vector2.right * FacingDirection, playerData.blockCheckDistance, playerData.movablesLayer);
+            var hit = Physics2D.Raycast(ceilingCheck.position, Vector2.right * FacingDirection,
+                playerData.blockCheckDistance, playerData.movablesLayer);
             if (!hit.collider) return false;
             GrabbedMovable = hit.collider?.GetComponent<Movable>();
             GrabbedMovable?.SetDragged(true);
@@ -246,129 +263,49 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
         private float CheckWallHeight()
         {
             Vector2 checkStartPosition = wallHeightCheck.position;
-            
-            // code added by Mrinal
-            // distance below nick's feet which will be considered as a pit
-            float pitConsiderDistance = 1.00F; 
-            // getting distance from raycast origin and Nick's feet (groundcheck is roughly 0.5 unit above feet so adding that as well)
-            float NickFeetToHeaddistance = Vector2.Distance( groundCheck.position, wallHeightCheck.position) + 0.5F;
-            
             int totalRaycasts = 10;
             var deltaDistance = playerData.maxHorizontalJumpDistance / totalRaycasts;
             bool isPitBetween = false;
-
-
-            jumpEndPosition.y += transform.position.y ; // temporary workaround to make him jump
-
-            bool landingPlatformFound = false; // if no landing platfomr is found, its a long jump
-            bool isJumpSmall = false; // to see if the jump should be small
-           
-             /* perform following checks -
-                         * 1. is there any platform above Nick's feet height? if yes, stop checking beyond and make is misc jump
-                         * 2. is there any gap? if yes this is a gap jump
-                         * 3. is there any platform at nick's feet level? then its a short jump
-                         * 4. is there any platform hitting raycast distance beyond Nick's feet level? then its a medium jump
-                         */
-            // trying some test code, hence commenting old code
-            for (int i=0; i < totalRaycasts; i++)
+            for (int i = 2; i <= totalRaycasts; i++)
             {
                 var raycastStartPosition = checkStartPosition;
                 raycastStartPosition.x += (FacingDirection * i * deltaDistance);
-                var hit = Physics2D.Raycast(raycastStartPosition, Vector2.down, playerData.maxWallHeightDistance, playerData.groundLayer);
-
+                var hit = Physics2D.Raycast(raycastStartPosition, Vector2.down, playerData.maxWallHeightDistance,
+                    playerData.groundLayer);
                 if (hit.collider)
                 {
-                    if (hit.distance < (NickFeetToHeaddistance - 0.5f))
+                    Debug.DrawLine(raycastStartPosition, hit.point, Color.green, 2f);
+
+                    if (feetPosition > hit.point.y)
                     {
-                        // 1. if raycast hits anypoint above nicks's feet position, its a misc jump
-                        isPitBetween = false; // should have a workaround for this @jai, its actually a head hit, or ledge hang
-                        Debug.Log("Ledge Hang");
-                        Debug.DrawLine(raycastStartPosition, hit.point, Color.red, 2f);
-                        break; // stop checking, its over, its a misc jump
-                    }
-                    if(hit.distance > (NickFeetToHeaddistance + pitConsiderDistance) )
-                    {
-                        // 2. raycast found gap deeper then Nick's feet position, its a pit
+                        //Platform is below feet height
+
                         isPitBetween = true;
-                    }
-                    // say if pit is found in any loop, checking for subsiquent iterations to find landing platform level
-                    if(isPitBetween)
-                    {
-                        Debug.DrawLine(raycastStartPosition, hit.point, Color.green, 2f);
-                        landingPlatformFound = true;
-
-                        if(hit.distance <= (NickFeetToHeaddistance + pitConsiderDistance))
-                        {
-                            // logic for small jump
-                            isJumpSmall = true;
-                        }
-                    }
-                }
-                else
-                {
-                    // nocollider was found hence there is a pit
-                    Debug.DrawLine(raycastStartPosition, raycastStartPosition + Vector2.down * playerData.maxWallHeightDistance, Color.blue, 2f);
-                    isPitBetween = true;
-                }
-            }
-            
-            Debug.Log("Pit exist :"+isPitBetween+", landing platform found : "+landingPlatformFound+", is jump small: "+isJumpSmall);
-
-            if(!isPitBetween){
-                Debug.Log("no-pit jump");
-                return 0;
-            }
-            else {
-                if(!landingPlatformFound)
-                {
-                    Debug.Log("Long Jump");
-                    // its a long jump
-                    return (playerData.maxWallHeightDistance + 1);
-                    // return playerData.smallWallJumpDistance; // setting jump medium for now
-                }
-                else if(!isJumpSmall)
-                {
-                    Debug.Log("Medium jump");
-                    // its a medium jump
-                    return playerData.maxWallHeightDistance;
-                    // return playerData.smallWallJumpDistance; // setting jump to medium for now
-                }
-                else
-                {
-                    Debug.Log("Small jump");
-                    return playerData.smallWallJumpDistance;
-                }
-            }
-
-
-            /* for(int i = 1; i <= totalRaycasts; i++){
-                var raycastStartPosition = checkStartPosition;
-                raycastStartPosition.x += (FacingDirection * i * deltaDistance);
-                var hit = Physics2D.Raycast(raycastStartPosition, Vector2.down, playerData.maxWallHeightDistance, playerData.groundLayer);
-                if(hit.collider){
-                    if(hit.distance > pitConsiderDistance)
-                    {
-                        isPitBetween = true;
-                        Debug.Log("---------GAP to be considered PIT AHEAD FOUND--------");
-                        Debug.DrawLine(raycastStartPosition, raycastStartPosition + Vector2.down * playerData.maxWallHeightDistance, Color.red, 2f);
-                    }
-                    else 
-                        Debug.DrawLine(raycastStartPosition, hit.point, Color.green, 2f);
-                    
-                    if(isPitBetween)
-                    {
-                        var playerHalfHeight = transform.position.y - feetPosition;
                         jumpEndPosition = hit.point;
-                        //jumpEndPosition.y += playerHalfHeight;
-                        Debug.Log("---------PIT BETWEEN--------");
-                        return (feetPosition - hit.point.y);
                     }
-                }else{
+                    else
+                    {
+                        //platform is above feet height
+                        isPitBetween = false;
+                        return 0;
+                    }
+                }
+                else
+                {
                     isPitBetween = true;
                     Debug.Log("---------PIT AHEAD FOUND--------");
-                    Debug.DrawLine(raycastStartPosition, raycastStartPosition + Vector2.down * playerData.maxWallHeightDistance, Color.red, 2f);
+                    Debug.DrawLine(raycastStartPosition,
+                        raycastStartPosition + Vector2.down * playerData.maxWallHeightDistance, Color.red, 2f);
                 }
-            } */
+            }
+
+            if (isPitBetween)
+            {
+                var playerHalfHeight = transform.position.y - feetPosition;
+                //jumpEndPosition.y += playerHalfHeight;
+                return (feetPosition - jumpEndPosition.y);
+            }
+
             return 0;
         }
 
@@ -393,10 +330,12 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
             {
                 jumpType = PlayerJumpType.NONE;
             }
-            else if(jumpHeight < 0){
+            else if (jumpHeight < 0)
+            {
                 jumpType = PlayerJumpType.LEDGE;
             }
-            else if (jumpHeight <= playerData.smallWallJumpDistance) // should be player feet level plus some vertical offset
+            else if (
+                jumpHeight <= playerData.smallWallJumpDistance) // should be player feet level plus some vertical offset
             {
                 jumpType = PlayerJumpType.SMALL;
             }
@@ -415,6 +354,7 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
         #endregion
 
         #region Other Functions
+
         public void SetColliderHeight(float height)
         {
             Vector2 center = MovementCollider.offset;
@@ -428,10 +368,12 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
 
         public Vector2 DetermineCornerPosition()
         {
-            RaycastHit2D xHit = Physics2D.Raycast(wallCheck.position, Vector2.right * FacingDirection, playerData.wallCheckDistance, playerData.groundLayer);
+            RaycastHit2D xHit = Physics2D.Raycast(wallCheck.position, Vector2.right * FacingDirection,
+                playerData.wallCheckDistance, playerData.groundLayer);
             float xDist = xHit.distance;
             workspace.Set((xDist + 0.015f) * FacingDirection, 0f);
-            RaycastHit2D yHit = Physics2D.Raycast(ledgeCheck.position + (Vector3)(workspace), Vector2.down, ledgeCheck.position.y - wallCheck.position.y + 0.015f, playerData.groundLayer);
+            RaycastHit2D yHit = Physics2D.Raycast(ledgeCheck.position + (Vector3) (workspace), Vector2.down,
+                ledgeCheck.position.y - wallCheck.position.y + 0.015f, playerData.groundLayer);
             float yDist = yHit.distance;
 
             workspace.Set(wallCheck.position.x + (xDist * FacingDirection), ledgeCheck.position.y - yDist);
@@ -446,7 +388,6 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
                 playerCollider.enabled = false;
                 playerCollider.enabled = true;
             }
-
         }
 
         public void DisableCollider()
@@ -476,7 +417,9 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
         {
             Gizmos.DrawWireSphere(groundCheck.position, playerData.groundCheckRadius);
 
-            Gizmos.DrawLine(wallCheck.position, new Vector3(wallCheck.position.x + playerData.wallCheckDistance, wallCheck.position.y, wallCheck.position.z));
+            Gizmos.DrawLine(wallCheck.position,
+                new Vector3(wallCheck.position.x + playerData.wallCheckDistance, wallCheck.position.y,
+                    wallCheck.position.z));
         }
 
         public void TakeDamage(float damage)
@@ -496,13 +439,12 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
 
         public void Die()
         {
-
         }
 
         public void Dispose()
         {
-
         }
+
         #endregion
     }
 }

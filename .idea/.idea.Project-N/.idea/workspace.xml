@@ -4,8 +4,8 @@
     <list default="true" id="b958847e-fb28-4d2f-a7b6-4c53ddf2b495" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Project-N/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Project-N/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Nick/FiniteStateMachine/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Nick/FiniteStateMachine/Player.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Nick/States/SubStates/PlayerDashState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Nick/States/SubStates/PlayerDashState.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Nick/States/SubStates/PlayerJumpState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Nick/States/SubStates/PlayerJumpState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Nick/States/SubStates/PlayerLandState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Nick/States/SubStates/PlayerLandState.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,6 +115,9 @@
       <workItem from="1636905232706" duration="1178000" />
       <workItem from="1638023563732" duration="1508000" />
       <workItem from="1638372776319" duration="3480000" />
+      <workItem from="1638627131522" duration="6014000" />
+      <workItem from="1638641232740" duration="1188000" />
+      <workItem from="1638689944911" duration="1901000" />
     </task>
     <servers />
   </component>
