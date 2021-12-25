@@ -55,5 +55,6 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
         public virtual void AnimationTrigger() { }
 
         public virtual void AnimationFinishTrigger() => isAnimationFinished = true;
+        public virtual Player GetPlayer() => player;
     }
 }

@@ -1,6 +1,7 @@
 ﻿using ProjectN.Characters.Nick.Data;
 using ProjectN.Characters.Nick.FiniteStateMachine;
 using ProjectN.Characters.Nick.Weapons;
+using UnityEngine;
 
 namespace ProjectN.Characters.Nick.States
 {
@@ -24,6 +25,7 @@ namespace ProjectN.Characters.Nick.States
             base.Enter();
 
             setVelocity = false;
+            dontSwitchToAnotherState = false;
 
             weapon.EnterWeapon();
         }
@@ -33,6 +35,11 @@ namespace ProjectN.Characters.Nick.States
             base.Exit();
 
             weapon.ExitWeapon();
+
+            if (player.InputHandler.LastPrimaryAttackInput)
+            {
+                dontSwitchToAnotherState = true;
+            }
         }
 
         public override void LogicUpdate()
@@ -77,8 +84,13 @@ namespace ProjectN.Characters.Nick.States
         public override void AnimationFinishTrigger()
         {
             base.AnimationFinishTrigger();
-
             isAbilityDone = true;
+            if (player.InputHandler.PrimaryAttackInputBuffer.Count > 0)
+                player.InputHandler.PrimaryAttackInputBuffer.RemoveAt(0);
+            if (!player.InputHandler.LastPrimaryAttackInput)
+            {
+                weapon.attackCounter = 0;
+            }
         }
 
         #endregion

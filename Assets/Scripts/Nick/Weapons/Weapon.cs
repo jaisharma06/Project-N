@@ -3,6 +3,7 @@ using ProjectN.Characters.Nick.Weapons.Data;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ProjectN.Characters.Enemy;
 
 namespace ProjectN.Characters.Nick.Weapons
 {
@@ -15,7 +16,8 @@ namespace ProjectN.Characters.Nick.Weapons
 
         protected PlayerAttackState state;
 
-        protected int attackCounter;
+        public int attackCounter;
+        protected bool canDamageEnemy;
 
         protected virtual void Start()
         {
@@ -29,16 +31,16 @@ namespace ProjectN.Characters.Nick.Weapons
         {
             gameObject.SetActive(true);
 
-            if (attackCounter >= weaponData.movementSpeed.Length)
-            {
-                attackCounter = 0;
-            }
-
             baseAnimator.SetBool("attack", true);
             weaponAnimator?.SetBool("attack", true);
 
             baseAnimator.SetInteger("attackCounter", attackCounter);
             weaponAnimator?.SetInteger("attackCounter", attackCounter);
+            attackCounter++;
+            if (attackCounter >= weaponData.movementSpeed.Length)
+            {
+                attackCounter = 0;
+            }
         }
 
         public virtual void ExitWeapon()
@@ -46,7 +48,7 @@ namespace ProjectN.Characters.Nick.Weapons
             baseAnimator.SetBool("attack", false);
             weaponAnimator?.SetBool("attack", false);
 
-            attackCounter++;
+            //attackCounter++;
 
             gameObject.SetActive(false);
         }
@@ -61,6 +63,16 @@ namespace ProjectN.Characters.Nick.Weapons
         public virtual void AnimationStartMovementTrigger()
         {
             state.SetPlayerVelocity(weaponData.movementSpeed[attackCounter]);
+        }
+
+        public virtual void AnimationTurnOnEnemyDamage()
+        {
+            canDamageEnemy = true;
+        }
+
+        public virtual void AnimationTurnOffEnemyDamage()
+        {
+            canDamageEnemy = false;
         }
 
         public virtual void AnimationStopMovementTrigger()
@@ -83,6 +95,13 @@ namespace ProjectN.Characters.Nick.Weapons
         public void InitializeWeapon(PlayerAttackState state)
         {
             this.state = state;
+        }
+
+        public virtual void ApplyDamageToEnemy(EnemyController enemy)
+        {
+            if (!canDamageEnemy)
+                return;
+            enemy.TakeDamage(weaponData.damage);
         }
 
     }

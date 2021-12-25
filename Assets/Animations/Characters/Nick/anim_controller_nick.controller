@@ -2573,21 +2573,21 @@ AnimatorStateMachine:
   - first: {fileID: -3373948540038433903}
     second:
     - {fileID: 1511999284226216680}
-  - first: {fileID: 5790810231578739244}
-    second:
-    - {fileID: 1391883865476870147}
-  - first: {fileID: 8491105699244916663}
-    second:
-    - {fileID: -3016399311995246984}
   - first: {fileID: -900822407623306971}
     second:
     - {fileID: -3851985913442585953}
-  - first: {fileID: 7811972991391279576}
+  - first: {fileID: 5790810231578739244}
     second:
-    - {fileID: -3798832008301552181}
+    - {fileID: 1391883865476870147}
   - first: {fileID: 6586252222782362428}
     second:
     - {fileID: 5106628221600069801}
+  - first: {fileID: 7811972991391279576}
+    second:
+    - {fileID: -3798832008301552181}
+  - first: {fileID: 8491105699244916663}
+    second:
+    - {fileID: -3016399311995246984}
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 50, y: 20, z: 0}
   m_EntryPosition: {x: 40, y: 120, z: 0}
@@ -2721,7 +2721,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Empty
+  m_Name: Attack
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:

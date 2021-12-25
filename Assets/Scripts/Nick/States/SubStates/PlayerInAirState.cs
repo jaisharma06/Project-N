@@ -91,15 +91,15 @@ namespace ProjectN.Characters.Nick.States
             {
                 CheckJumpMultiplier();
             }
-            
-            if (player.InputHandler.AttackInputs[(int) CombatInputs.primary])
+
+            if (player.InputHandler.LastPrimaryAttackInput)
             {
                 stateMachine.ChangeState(player.PrimaryAttackState);
             }
-            else if (player.InputHandler.AttackInputs[(int) CombatInputs.secondary])
-            {
-                //stateMachine.ChangeState(player.SecondaryAttackState);
-            }
+            // else if (player.InputHandler.AttackInputs[(int)CombatInputs.secondary])
+            // {
+            //     //stateMachine.ChangeState(player.SecondaryAttackState);
+            // }
             else if (isGrounded && player.CurrentVelocity.y < 0.01f)
             {
                 stateMachine.ChangeState(player.LandState);
@@ -145,7 +145,7 @@ namespace ProjectN.Characters.Nick.States
                 if (player.jumpType == PlayerJumpType.NONE || player.jumpType == PlayerJumpType.LEDGE)
                 {
                     player.SetVelocityX(playerData.movementVelocity * xInput);
-                    
+
                 }
                 else
                 {

@@ -6,5 +6,6 @@ namespace ProjectN.Characters.Nick.Weapons.Data
     public class SO_WeaponData : ScriptableObject
     {
         public float[] movementSpeed;
+        public float damage = 0.25f;
     }
 }

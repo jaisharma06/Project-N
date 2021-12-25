@@ -9,6 +9,7 @@ namespace ProjectN.Characters.Nick.States
     public class PlayerAbilityState : PlayerState
     {
         protected bool isAbilityDone;
+        protected bool dontSwitchToAnotherState;
 
         private bool isGrounded;
 
@@ -41,13 +42,20 @@ namespace ProjectN.Characters.Nick.States
 
             if (isAbilityDone)
             {
-                if (isGrounded && player.CurrentVelocity.y < 0.01f)
+                if (dontSwitchToAnotherState)
                 {
-                    stateMachine.ChangeState(player.IdleState);
+                    stateMachine.ChangeState(stateMachine.CurrentState);
                 }
                 else
                 {
-                    stateMachine.ChangeState(player.InAirState);
+                    if (isGrounded && player.CurrentVelocity.y < 0.01f)
+                    {
+                        stateMachine.ChangeState(player.IdleState);
+                    }
+                    else
+                    {
+                        stateMachine.ChangeState(player.InAirState);
+                    }
                 }
             }
         }

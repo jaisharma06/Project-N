@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections.Generic;
 
 namespace ProjectN.Characters.Nick.Input
 {
@@ -20,7 +21,9 @@ namespace ProjectN.Characters.Nick.Input
         public bool DashInput { get; private set; }
         public bool DashInputStop { get; private set; }
 
-        public bool[] AttackInputs { get; private set; }
+        //public bool[] AttackInputs { get; private set; }
+        public List<bool> PrimaryAttackInputBuffer { get; set; }
+        public bool LastPrimaryAttackInput { get { return (PrimaryAttackInputBuffer != null && PrimaryAttackInputBuffer.Count > 0) ? PrimaryAttackInputBuffer[PrimaryAttackInputBuffer.Count - 1] : false; } }
 
         [SerializeField]
         private float inputHoldTime = 0.2f;
@@ -33,7 +36,7 @@ namespace ProjectN.Characters.Nick.Input
             playerInput = GetComponent<PlayerInput>();
 
             int count = Enum.GetValues(typeof(CombatInputs)).Length;
-            AttackInputs = new bool[count];
+            PrimaryAttackInputBuffer = new List<bool>();
 
             cam = Camera.main;
         }
@@ -48,12 +51,16 @@ namespace ProjectN.Characters.Nick.Input
         {
             if (context.started)
             {
-                AttackInputs[(int)CombatInputs.primary] = true;
+                //AttackInputs[(int)CombatInputs.primary] = true;
+                if (PrimaryAttackInputBuffer.Count < 2)
+                {
+                    PrimaryAttackInputBuffer.Add(true);
+                }
             }
 
             if (context.canceled)
             {
-                AttackInputs[(int)CombatInputs.primary] = false;
+                //AttackInputs[(int)CombatInputs.primary] = false;
             }
         }
 
@@ -61,12 +68,12 @@ namespace ProjectN.Characters.Nick.Input
         {
             if (context.started)
             {
-                AttackInputs[(int)CombatInputs.secondary] = true;
+                //AttackInputs[(int)CombatInputs.secondary] = true;
             }
 
             if (context.canceled)
             {
-                AttackInputs[(int)CombatInputs.secondary] = false;
+                //AttackInputs[(int)CombatInputs.secondary] = false;
             }
         }
 
