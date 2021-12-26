@@ -97,24 +97,22 @@ namespace ProjectN.Characters.Nick.Weapons
 
         public virtual void ApplyDamageToEnemy(EnemyController enemy)
         {
-            if (!canDamageEnemy)
+            if (!canDamageEnemy || !enemy)
                 return;
-            enemy.TakeDamage(weaponData.damage);
+            enemy.health.TakeDamage(weaponData.damage);
         }
 
         #region CollisionTriggers
         private void OnTriggerStay2D(Collider2D other)
         {
+            Debug.Log(canDamageEnemy);
             if (!canDamageEnemy)
             {
                 return;
             }
 
             var enemy = other.GetComponent<EnemyController>();
-            if (enemy)
-            {
-                enemy.TakeDamage(weaponData.damage);
-            }
+            ApplyDamageToEnemy(enemy);
         }
         #endregion
 
