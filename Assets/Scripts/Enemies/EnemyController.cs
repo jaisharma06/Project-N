@@ -5,9 +5,11 @@ namespace ProjectN.Characters.Enemy
     {
         #region TRAITS
         public float damageCooldownTime = 1f;
+        public float maxHealth = 2f;
         #endregion
 
         #region PRIVATE_MEMBERS
+        [SerializeField]
         private bool canTakeDamage;
         private float damageCooldownTimer = 0;
         #endregion
@@ -25,17 +27,19 @@ namespace ProjectN.Characters.Enemy
         #endregion
 
         #region HEALTH
-        public float maxHealth { get; set; }
         public bool isDead { get; set; }
         private float health;
 
         private void InitHealth()
         {
             health = maxHealth;
+            canTakeDamage = true;
+            isDead = false;
         }
 
         public void TakeDamage(float damage)
         {
+            Debug.Log($"Taking Damage {isDead} {canTakeDamage}");
             if (isDead || !canTakeDamage)
             {
                 return;
@@ -45,6 +49,7 @@ namespace ProjectN.Characters.Enemy
                 health -= damage;
                 damageCooldownTimer = damageCooldownTime;
                 canTakeDamage = false;
+                Debug.Log("Damage applied to: " + name);
             }
 
             if (health <= 0)
@@ -57,6 +62,7 @@ namespace ProjectN.Characters.Enemy
         public void Die()
         {
             isDead = true;
+            Destroy(gameObject, 0);
         }
 
         private void UpdateDamageCooldownTimer()

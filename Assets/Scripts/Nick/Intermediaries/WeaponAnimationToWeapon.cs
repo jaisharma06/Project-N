@@ -39,5 +39,15 @@ namespace ProjectN.Characters.Nick.Intermediaries
             weapon.AnimationTurnOnFlipTigger();
         }
 
+        private void AnimationTurnOnEnemyDamage()
+        {
+            weapon.AnimationTurnOnEnemyDamage();
+        }
+
+        private void AnimationTurnOffEnemyDamage()
+        {
+            weapon.AnimationTurnOffEnemyDamage();
+        }
+
     }
 }

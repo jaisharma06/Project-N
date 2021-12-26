@@ -1,7 +1,5 @@
 ﻿using ProjectN.Characters.Nick.States;
 using ProjectN.Characters.Nick.Weapons.Data;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using ProjectN.Characters.Enemy;
 
@@ -103,6 +101,22 @@ namespace ProjectN.Characters.Nick.Weapons
                 return;
             enemy.TakeDamage(weaponData.damage);
         }
+
+        #region CollisionTriggers
+        private void OnTriggerStay2D(Collider2D other)
+        {
+            if (!canDamageEnemy)
+            {
+                return;
+            }
+
+            var enemy = other.GetComponent<EnemyController>();
+            if (enemy)
+            {
+                enemy.TakeDamage(weaponData.damage);
+            }
+        }
+        #endregion
 
     }
 }
