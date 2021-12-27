@@ -39,7 +39,6 @@ namespace ProjectN.Characters.Enemy
 
         public void TakeDamage(float damage)
         {
-            Debug.Log($"Taking Damage {isDead} {canTakeDamage}");
             if (isDead || !canTakeDamage)
             {
                 return;

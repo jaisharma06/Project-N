@@ -82,8 +82,22 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
+  - time: 0
+    functionName: AnimationTurnOffEnemyDamage
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 0.16666667
     functionName: AnimationStopMovementTrigger
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.16666667
+    functionName: AnimationTurnOnEnemyDamage
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
@@ -98,6 +112,13 @@ AnimationClip:
     messageOptions: 0
   - time: 0.33333334
     functionName: AnimationFinishTrigger
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.33333334
+    functionName: AnimationTurnOffEnemyDamage
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
