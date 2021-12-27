@@ -17,7 +17,7 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
         LEDGE = 4
     }
 
-    public class Player : MonoBehaviour, IHealth
+    public class Player : MonoBehaviour
     {
         #region State Variables
 
@@ -77,12 +77,9 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
         public Vector2 CurrentVelocity { get; private set; }
         public int FacingDirection { get; private set; }
         public Movable GrabbedMovable { get; private set; }
+        private Health health{get;set;}
 
         private Vector2 workspace;
-
-        public float health { get; private set; }
-        public float maxHealth { get; set; }
-        public bool isDead { get; set; }
         public bool isGrabbingMovable { get; set; }
 
         public float feetPosition
@@ -126,6 +123,8 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
             JumpUpPlatformState = new PlayerJumpUpPlatformState(this, StateMachine, playerData, "jumpUpPlatform");
             LeaveBlockState = new PlayerLeaveBlockState(this, StateMachine, playerData, "leavingBlock");
             HoldBlockState = new PlayerHoldBlockState(this, StateMachine, playerData, "pushingBlock");
+
+            health = GetComponent<Health>();
         }
 
         private void Start()
@@ -141,8 +140,7 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
             FacingDirection = 1;
             PrimaryAttackState.SetWeapon(Inventory.weapons[(int) CombatInputs.primary]);
 
-            maxHealth = playerData.maxHealth;
-            health = maxHealth;
+            health.maxHealth = playerData.maxHealth;
 
             StateMachine.Initialize(IdleState);
         }
@@ -405,7 +403,7 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
 
         public void AnimationTrigger() => StateMachine.CurrentState.AnimationTrigger();
 
-        public void AnimtionFinishTrigger() => StateMachine.CurrentState.AnimationFinishTrigger();
+        public void AnimationFinishTrigger() => StateMachine.CurrentState.AnimationFinishTrigger();
 
         private void Flip()
         {
@@ -421,30 +419,6 @@ namespace ProjectN.Characters.Nick.FiniteStateMachine
                 new Vector3(wallCheck.position.x + playerData.wallCheckDistance, wallCheck.position.y,
                     wallCheck.position.z));
         }
-
-        public void TakeDamage(float damage)
-        {
-            if (isDead)
-            {
-                return;
-            }
-
-            health -= damage;
-            if (health <= 0)
-            {
-                health = 0;
-                Die();
-            }
-        }
-
-        public void Die()
-        {
-        }
-
-        public void Dispose()
-        {
-        }
-
         #endregion
     }
 }

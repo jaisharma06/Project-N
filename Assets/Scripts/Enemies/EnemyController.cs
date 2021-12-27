@@ -1,89 +1,35 @@
 using UnityEngine;
 namespace ProjectN.Characters.Enemy
 {
-    public class EnemyController : MonoBehaviour, IHealth
+    public class EnemyController : MonoBehaviour
     {
-        #region TRAITS
-        public float damageCooldownTime = 1f;
-        public float maxHealth = 2f;
-        #endregion
+        public Health health;
 
-        #region PRIVATE_MEMBERS
-        [SerializeField]
-        private bool canTakeDamage;
-        private float damageCooldownTimer = 0;
-        #endregion
-
-        #region UNITY_BUILTINS
         private void Awake()
         {
-            InitHealth();
+            health = GetComponent<Health>();
         }
 
-        private void Update()
+        private void OnEnable()
         {
-            UpdateDamageCooldownTimer();
+            health.OnTakeDamage += OnTakeDamage;
+            health.OnDie += OnDie;
         }
-        #endregion
-
-        #region HEALTH
-        public bool isDead { get; set; }
-        private float health;
-
-        private void InitHealth()
+        private void OnDisable()
         {
-            health = maxHealth;
-            canTakeDamage = true;
-            isDead = false;
+            health.OnTakeDamage -= OnTakeDamage;
+            health.OnDie -= OnDie;
         }
 
-        public void TakeDamage(float damage)
+        private void OnTakeDamage(float damage)
         {
-            if (isDead || !canTakeDamage)
-            {
-                return;
-            }
-            if (health > 0)
-            {
-                health -= damage;
-                damageCooldownTimer = damageCooldownTime;
-                canTakeDamage = false;
-                Debug.Log("Damage applied to: " + name);
-            }
-
-            if (health <= 0)
-            {
-                health = 0;
-                Die();
-            }
+            Debug.Log("Enemy took damage: " + name);
         }
 
-        public void Die()
+        private void OnDie()
         {
-            isDead = true;
+            Debug.Log("Enemy died: " + name);
             Destroy(gameObject, 0);
         }
-
-        private void UpdateDamageCooldownTimer()
-        {
-            if (damageCooldownTimer <= 0)
-            {
-                return;
-            }
-
-            damageCooldownTimer -= Time.deltaTime;
-
-            if (damageCooldownTimer <= 0)
-            {
-                damageCooldownTimer = 0;
-                canTakeDamage = true;
-            }
-        }
-
-        public void Dispose()
-        {
-
-        }
-        #endregion
     }
 }

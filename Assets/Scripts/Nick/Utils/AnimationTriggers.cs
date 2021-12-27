@@ -1,6 +1,4 @@
 using ProjectN.Characters.Nick.FiniteStateMachine;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace ProjectN.Characters.Nick.Utils
@@ -21,7 +19,7 @@ namespace ProjectN.Characters.Nick.Utils
 
         private void AnimationFinishTrigger()
         {
-            _player.AnimtionFinishTrigger();
+            _player.AnimationFinishTrigger();
         }
     }
 }
